@@ -7,24 +7,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Orders;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
 {
     public function ShowAllOrders()
     {
-        return response()->json(Orders::all());
+        return response()->json(Order::all());
     }
     
     public function ShowOneOrder($id)
     {
-        return response()->json(Orders::find($id));
+        return response()->json(Order::find($id));
     }
 
     public function ShowOneOShowAllCustomerOrdersrder()
     {
-        return response()->json(Orders::all());
+        return response()->json(Order::all());
     }
 
 
@@ -37,7 +37,7 @@ class OrdersController extends Controller
         *  "total_price"
         */
 
-        $order = Orders::create($request->all());
+        $order = Order::create($request->all());
 
         return response()->json($order, 201);
     }

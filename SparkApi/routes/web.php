@@ -21,7 +21,8 @@ $router->group(['prefix' => 'sparkapi/v1'], function () use ($router) {
     |----------------------------------------------------------------------
     | City
     |----------------------------------------------------------------------
-    */    $router->get('cities', ['uses' => 'CityController@showAllCities']);
+    */    
+    $router->get('cities', ['uses' => 'CityController@showAllCities']);
     $router->get('cities/{id}', ['uses' => 'CityController@showOneCity']);
     $router->put('cities/{id}', ['uses' => 'CityController@update']);
     $router->post('cities', ['uses' => 'CityController@create']);
@@ -57,10 +58,10 @@ $router->group(['prefix' => 'sparkapi/v1'], function () use ($router) {
     | Orders
     |----------------------------------------------------------------------
     */
-    $router->get('orders',  ['uses' => 'OrdersControllers@ShowAllOrders']);
-    $router->post('orders', ['uses' => 'OrdersControllers@create']);
-    $router->get('orders/{user_id}', ['uses' => 'OrdersControllers@ShowAllCustomerOrders']);
+    $router->get('orders',  ['uses' => 'OrdersController@ShowAllOrders']);
+    $router->post('orders', ['uses' => 'OrdersController@create']);
+    $router->get('orders/{user_id}', ['uses' => 'OrdersController@ShowAllCustomerOrders']);
 
     // Order Router
-    $router->get('order/{order_id}', ['uses' => 'OrdersControllers@ShowOneOrder']);
+    $router->get('order/{order_id}', ['uses' => 'OrdersController@ShowOneOrder']);
 });
