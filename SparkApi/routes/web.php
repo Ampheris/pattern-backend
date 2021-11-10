@@ -17,8 +17,11 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => 'sparkapi/v1'], function () use ($router) {
-    //city
-    $router->get('cities', ['uses' => 'CityController@showAllCities']);
+    /*
+    |----------------------------------------------------------------------
+    | City
+    |----------------------------------------------------------------------
+    */    $router->get('cities', ['uses' => 'CityController@showAllCities']);
     $router->get('cities/{id}', ['uses' => 'CityController@showOneCity']);
     $router->put('cities/{id}', ['uses' => 'CityController@update']);
     $router->post('cities', ['uses' => 'CityController@create']);
@@ -48,4 +51,16 @@ $router->group(['prefix' => 'sparkapi/v1'], function () use ($router) {
     */
     $router->get('bikehistory/bike/{id}', ['uses' => 'BikeHistoryController@showOneBikesHistory']);
     $router->get('bikehistory/user/{id}', ['uses' => 'BikeHistoryController@showOneUsersBikeHistory']);
+
+    /*
+    |----------------------------------------------------------------------
+    | Orders
+    |----------------------------------------------------------------------
+    */
+    $router->get('orders',  ['uses' => 'OrdersControllers@ShowAllOrders']);
+    $router->post('orders', ['uses' => 'OrdersControllers@create']);
+    $router->get('orders/{user_id}', ['uses' => 'OrdersControllers@ShowAllCustomerOrders']);
+
+    // Order Router
+    $router->get('order/{order_id}', ['uses' => 'OrdersControllers@ShowOneOrder']);
 });
