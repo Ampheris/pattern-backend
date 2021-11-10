@@ -1,7 +1,6 @@
 <?php
 
 /** @var \Laravel\Lumen\Routing\Router $router */
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -18,10 +17,17 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => 'sparkapi/v1'], function () use ($router) {
-
-      $router->get('bikes',  ['uses' => 'BikeController@showAllBikes']);
-      $router->get('bikes/{id}', ['uses' => 'BikeController@showOneBike']);
-      $router->post('bikes', ['uses' => 'BikeController@create']);
-      $router->delete('bikes/{id}', ['uses' => 'BikeController@delete']);
-      $router->put('bikes/{id}', ['uses' => 'BikeController@update']);
+    
+        $router->get('bikes',  ['uses' => 'BikeController@showAllBikes']);
+        $router->get('bikes/{id}', ['uses' => 'BikeController@showOneBike']);
+        $router->post('bikes', ['uses' => 'BikeController@create']);
+        $router->delete('bikes/{id}', ['uses' => 'BikeController@delete']);
+        $router->put('bikes/{id}', ['uses' => 'BikeController@update']);
+        //city
+        $router->get('cities', ['uses' => 'CityController@showAllCities']);
+        $router->get('cities/{id}', ['uses' => 'CityController@showOneCity']);
+        $router->put('cities/{id}', ['uses' => 'CityController@update']);
+        $router->post('cities', ['uses' => 'CityController@create']);
 });
+
+
