@@ -11,8 +11,8 @@ class Cityzone extends Model
 
     protected $fillable = [
         'city',
-        'x_pos',
-        'y_pos',
+        'X',
+        'Y',
         'radius'
     ];
 }
