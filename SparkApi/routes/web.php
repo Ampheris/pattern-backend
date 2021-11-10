@@ -37,4 +37,11 @@ $router->group(['prefix' => 'sparkapi/v1'], function () use ($router) {
     $router->get('chargingstations/{id}', ['uses' => 'ChargingStationsController@showOneChargingstation']);
     $router->post('chargingstations', ['uses' => 'ChargingStationsController@create']);
     $router->put('chargingstations/{id}', ['uses' => 'ChargingStationsController@update']);
+    /*
+    |----------------------------------------------------------------------
+    | Bikehistory
+    |----------------------------------------------------------------------
+    */
+    $router->get('bikehistory/bike/{id}', ['uses' => 'BikeHistoryController@showOneBikesHistory']);
+    $router->get('bikehistory/user/{id}', ['uses' => 'BikeHistoryController@showOneUsersBikeHistory']);
 });
