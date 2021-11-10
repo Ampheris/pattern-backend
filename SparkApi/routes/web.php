@@ -1,7 +1,6 @@
 <?php
 
 /** @var \Laravel\Lumen\Routing\Router $router */
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -18,6 +17,14 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => 'sparkapi/v1'], function () use ($router) {
+<<<<<<< SparkApi/routes/web.php
+    
+        //city
+        $router->get('cities', ['uses' => 'CityController@showAllCities']);
+        $router->get('cities/{id}', ['uses' => 'CityController@showOneCity']);
+        $router->put('cities/{id}', ['uses' => 'CityController@update']);
+        $router->post('cities', ['uses' => 'CityController@create']);
+=======
     /*
     |----------------------------------------------------------------------
     | Bikes
@@ -44,4 +51,7 @@ $router->group(['prefix' => 'sparkapi/v1'], function () use ($router) {
     */
     $router->get('bikehistory/bike/{id}', ['uses' => 'BikeHistoryController@showOneBikesHistory']);
     $router->get('bikehistory/user/{id}', ['uses' => 'BikeHistoryController@showOneUsersBikeHistory']);
+>>>>>>> SparkApi/routes/web.php
 });
+
+

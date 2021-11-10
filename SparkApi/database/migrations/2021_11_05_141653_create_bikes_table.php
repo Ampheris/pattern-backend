@@ -30,13 +30,13 @@ class CreateBikesTable extends Migration
     {
 
         for ($i = 0; $i < 10; $i++) {
-            $vaccine = new Bike();
-            $vaccine->status = "tillgänglig";
-            $vaccine->battery = 100;
-            $vaccine->velocity = 0;
-            $vaccine->X = 0;
-            $vaccine->Y = 0;
-            $vaccine->save();
+            $bike = new Bike();
+            $bike->status = "tillgänglig";
+            $bike->battery = 100;
+            $bike->velocity = 0;
+            $bike->X = 0;
+            $bike->Y = 0;
+            $bike->save();
         }
     }
     /**
