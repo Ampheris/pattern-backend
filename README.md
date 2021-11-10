@@ -5,7 +5,7 @@
 * Install requirements: composer install
 * Migrate database:
     * In .env set DB_CONNECTION=sqlite and remove the rest of the database envs.
-    * Place your database.sqlite in the database folder.
+    * Create a file database.sqlite and place it in the database folder.
     * php artisan migrate
 * Run development server: php -S localhost:8000 -t public
 
