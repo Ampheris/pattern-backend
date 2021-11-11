@@ -21,7 +21,7 @@ $router->group(['prefix' => 'sparkapi/v1'], function () use ($router) {
     |----------------------------------------------------------------------
     | City
     |----------------------------------------------------------------------
-    */    
+    */
     $router->get('cities', ['uses' => 'CityController@showAllCities']);
     $router->get('cities/{id}', ['uses' => 'CityController@showOneCity']);
     $router->put('cities/{id}', ['uses' => 'CityController@update']);
@@ -38,6 +38,15 @@ $router->group(['prefix' => 'sparkapi/v1'], function () use ($router) {
     $router->put('bikes/{id}', ['uses' => 'BikeController@update']);
     /*
     |----------------------------------------------------------------------
+    | Bikes in chargingstations
+    |----------------------------------------------------------------------
+    */
+    $router->get('chargingstation/bikes/{chargingstation_id}',  ['uses' => 'BikeInChargingStationController@showAllBikesInChargingstation']);
+    $router->get('chargingstation/bike/{bike_id}', ['uses' => 'BikeInChargingStationController@showBikeInChargingStation']);
+    $router->post('chargingstation/bike', ['uses' => 'BikeInChargingStationController@add']);
+    $router->delete('chargingstation/bike/{bike_id}', ['uses' => 'BikeInChargingStationController@remove']);
+    /*
+    |----------------------------------------------------------------------
     | Chargingstations
     |----------------------------------------------------------------------
     */
@@ -47,11 +56,29 @@ $router->group(['prefix' => 'sparkapi/v1'], function () use ($router) {
     $router->put('chargingstations/{id}', ['uses' => 'ChargingStationsController@update']);
     /*
     |----------------------------------------------------------------------
+    | Bikes in parkingspace
+    |----------------------------------------------------------------------
+    */
+    $router->get('parkingspace/bikes/{parkingspace_id}',  ['uses' => 'BikeInParkingSpaceController@showAllBikesInParkingSpace']);
+    $router->get('parkingspace/bike/{bike_id}', ['uses' => 'BikeInParkingSpaceController@showBikeInParkingSpace']);
+    $router->post('parkingspace/bike', ['uses' => 'BikeInParkingSpaceController@add']);
+    $router->delete('parkingspace/bike/{bike_id}', ['uses' => 'BikeInParkingSpaceController@remove']);
+    /*
+    |----------------------------------------------------------------------
+    | parkingspaces
+    |----------------------------------------------------------------------
+    */
+    $router->get('parkingspaces',  ['uses' => 'ParkingSpacesController@showAllParkingSpaces']);
+    $router->get('parkingspaces/{id}', ['uses' => 'ParkingSpacesController@showOneParkingSpace']);
+    $router->post('parkingspaces', ['uses' => 'ParkingSpacesController@create']);
+    $router->put('parkingspaces/{id}', ['uses' => 'ParkingSpacesController@update']);
+    /*
+    |----------------------------------------------------------------------
     | Bikehistory
     |----------------------------------------------------------------------
     */
-    $router->get('bikehistory/bike/{id}', ['uses' => 'BikeHistoryController@showOneBikesHistory']);
-    $router->get('bikehistory/user/{id}', ['uses' => 'BikeHistoryController@showOneUsersBikeHistory']);
+    $router->get('bikehistory/bike/{bike_id}', ['uses' => 'BikeHistoryController@showOneBikesHistory']);
+    $router->get('bikehistory/user/{customer_id}', ['uses' => 'BikeHistoryController@showOneUsersBikeHistory']);
 
     /*
     |----------------------------------------------------------------------
@@ -60,8 +87,12 @@ $router->group(['prefix' => 'sparkapi/v1'], function () use ($router) {
     */
     $router->get('orders',  ['uses' => 'OrdersController@ShowAllOrders']);
     $router->post('orders', ['uses' => 'OrdersController@create']);
-    $router->get('orders/{user_id}', ['uses' => 'OrdersController@ShowAllCustomerOrders']);
+    $router->get('orders/{customer_id}', ['uses' => 'OrdersController@ShowCustomersOrders']);
 
-    // Order Router
+    /*
+    |----------------------------------------------------------------------
+    | Order
+    |----------------------------------------------------------------------
+    */
     $router->get('order/{order_id}', ['uses' => 'OrdersController@ShowOneOrder']);
 });

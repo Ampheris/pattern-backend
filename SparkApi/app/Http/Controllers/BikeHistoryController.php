@@ -15,13 +15,13 @@ use Illuminate\Http\Request;
  */
 class BikeHistoryController extends Controller
 {
-    public function showOneBikesHistory($id)
+    public function showOneBikesHistory($bike_id)
     {
-        return response()->json(Bikelog::where('bike_id', $id));
+        return response()->json(Bikelog::where('bike_id', $bike_id)->get());
     }
 
-    public function showOneUsersBikeHistory($id)
+    public function showOneUsersBikeHistory($customer_id)
     {
-        return response()->json(Bikelog::find('customer_id', $id));
+        return response()->json(Bikelog::where('customer_id', $customer_id)->get());
     }
 }

@@ -16,17 +16,16 @@ class OrdersController extends Controller
     {
         return response()->json(Order::all());
     }
-    
-    public function ShowOneOrder($id)
+
+    public function ShowOneOrder($order_id)
     {
-        return response()->json(Order::find($id));
+        return response()->json(Order::where($order_id)->get());
     }
 
-    public function ShowOneOShowAllCustomerOrdersrder()
+    public function ShowCustomersOrders($customer_id)
     {
-        return response()->json(Order::all());
+        return response()->json(Order::where($customer_id)->get());
     }
-
 
     public function create(Request $request)
     {
