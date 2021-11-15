@@ -10,8 +10,8 @@ class Chargingstation extends Model
     use HasFactory;
 
     protected $fillable = [
-        'x_pos',
-        'y_pos',
+        'X',
+        'Y',
         'radius',
         'available',
         'name'
