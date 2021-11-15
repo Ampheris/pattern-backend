@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Parkingspace;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,15 +16,24 @@ class CreateParkingspacesTable extends Migration
     {
         Schema::create('parkingspaces', function (Blueprint $table) {
             $table->id();
-            $table->float('x_pos');
-            $table->float('y_pos');
+            $table->float('X');
+            $table->float('Y');
             $table->float('radius');
-            $table->integer('available');
+            $table->integer('available')->nullable();
             $table->string('name');
             $table->timestamps();
         });
+        $this->migrationCreate();
     }
-
+    public function migrationCreate()
+    {
+        $station = new Parkingspace();
+        $station->X = -0.025;
+        $station->Y = -0.025;
+        $station->radius = 0.005;
+        $station->name = 'centralen';
+        $station->save();
+    }
     /**
      * Reverse the migrations.
      *
