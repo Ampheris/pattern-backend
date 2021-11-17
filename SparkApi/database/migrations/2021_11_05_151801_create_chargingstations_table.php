@@ -18,7 +18,6 @@ class CreateChargingstationsTable extends Migration
             $table->float('x_pos');
             $table->float('y_pos');
             $table->float('radius');
-            $table->integer('available');
             $table->string('name');
             $table->timestamps();
         });

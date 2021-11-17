@@ -13,7 +13,6 @@ class Chargingstation extends Model
         'x_pos',
         'y_pos',
         'radius',
-        'available',
         'name'
     ];
 }
