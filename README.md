@@ -7,7 +7,7 @@
     * In .env set DB_CONNECTION=sqlite and remove the rest of the database envs.
     * Create a file database.sqlite and place it in the database folder.
     * php artisan migrate
-* Run development server: php -S localhost:8000 -t public
+* Run development server: php -S localhost:8080 -t public
 
 
 ## Use Postman to test Api
