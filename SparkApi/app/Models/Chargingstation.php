@@ -13,7 +13,6 @@ class Chargingstation extends Model
         'X',
         'Y',
         'radius',
-        'available',
         'name'
     ];
 }

@@ -13,7 +13,6 @@ class Parkingspace extends Model
         'X',
         'Y',
         'radius',
-        'available',
         'name'
     ];
 }
