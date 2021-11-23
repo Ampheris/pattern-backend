@@ -3,13 +3,13 @@
 ## Get started with developing
 * Clone repo
 * Install requirements:
-    * ```text
+    ```text
     composer install
     ```
 * Migrate database:
     * In .env set DB_CONNECTION=sqlite and remove the rest of the database envs.
     * Create a file database.sqlite and place it in the database folder.
-    * ```text
+    ```text
     php artisan migrate
     ```
 * Run development server: php -S localhost:8080 -t public
