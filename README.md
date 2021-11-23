@@ -5,7 +5,7 @@
 ## Table of content
 * [Contributing](#get-started-with-developing)
 * [Code quality](#code-quality)
-* [Test Api](#postman)
+* [Test Api](#use-postman-to-test-api)
 
 
 ## Get started with developing
