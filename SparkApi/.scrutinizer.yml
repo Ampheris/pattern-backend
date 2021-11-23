@@ -1,0 +1,28 @@
+imports:
+    - php
+
+filter:
+    excluded_paths:
+        - "vendor/*"
+        - "storage/*"
+        - "build/*"
+        - "cache/*"
+        - "database/*"
+        - "myreport.html"
+
+build:
+    project_setup:
+        override:
+            - true
+    nodes:
+        my-tests:
+            environment:
+                php:
+                    version: 7.4
+    tests:
+        override:
+            -
+                command: "make phpunit"
+                coverage:
+                    file: "build/coverage.clover"
+                    format: "php-clover"
