@@ -31,7 +31,7 @@ class CreateBikesTable extends Migration
 
         for ($i = 0; $i < 10; $i++) {
             $bike = new Bike();
-            $bike->status = "tillgänglig";
+            $bike->status = "available";
             $bike->battery = 100;
             $bike->velocity = 0;
             $bike->X = 0;
