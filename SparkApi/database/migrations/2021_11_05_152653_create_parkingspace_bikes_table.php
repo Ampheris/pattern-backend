@@ -16,9 +16,9 @@ class CreateParkingspaceBikesTable extends Migration
         Schema::create('parkingspace_bikes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('parkingspace_id');
-            $table->unsignedBigInteger('bike_id');
+            $table->unsignedBigInteger('bike_id')->unique();
             $table->dateTime('arrival');
-            $table->dateTime('departure')->nullable();
+            // $table->dateTime('departure')->nullable();
             $table->timestamps();
 
             $table->foreign('parkingspace_id')->references('id')->on('parkingspaces')->onDelete('cascade');

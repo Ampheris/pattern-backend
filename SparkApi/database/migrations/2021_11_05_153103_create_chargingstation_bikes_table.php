@@ -16,9 +16,9 @@ class CreateChargingstationBikesTable extends Migration
         Schema::create('chargingstation_bikes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('chargingstation_id');
-            $table->unsignedBigInteger('bike_id');
+            $table->unsignedBigInteger('bike_id')->unique();
             $table->dateTime('arrival');
-            $table->dateTime('departure')->nullable();
+            // $table->dateTime('departure')->nullable();
             $table->timestamps();
 
             $table->foreign('chargingstation_id')->references('id')->on('chargingstations')->onDelete('cascade');

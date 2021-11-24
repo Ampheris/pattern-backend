@@ -8,6 +8,7 @@
     <exclude-pattern>build</exclude-pattern>
     <exclude-pattern>cache</exclude-pattern>
     <exclude-pattern>doc</exclude-pattern>
+    <exclude-pattern>database</exclude-pattern>
     <!-- <exclude-pattern>test/config.php</exclude-pattern> -->
     <exclude-pattern>public</exclude-pattern>
     <exclude-pattern>vendor</exclude-pattern>

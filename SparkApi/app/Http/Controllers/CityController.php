@@ -1,4 +1,5 @@
 <?php
+
 /*
 |--------------------------------------------------------------------------
 | City controller
@@ -19,10 +20,12 @@ class CityController extends Controller
 
     public function showAllCities()
     {
-        return response()->json(Cityzone::all());
+        $cityzone = new Cityzone();
+        return response()->json($cityzone::all());
     }
 
-    public function create(Request $request) {
+    public function create(Request $request)
+    {
         /**
          * Requires:
          * "X"
@@ -30,20 +33,24 @@ class CityController extends Controller
          * "Radius"
          * "City"
          */
-        $city = Cityzone::create($request->all());
+         $cityzone = new Cityzone();
+         $city = $cityzone::create($request->all());
 
         return response()->json($city, 201);
     }
 
-    public function showOneCity($id) {
-        return response()->json(Cityzone::find($id));
+    public function showOneCity($cityId)
+    {
+        $cityzone = new Cityzone();
+        return response()->json($cityzone::find($cityId));
     }
 
-    public function update($id, Request $request) {
-        $city = Cityzone::findOrFail($id);
+    public function update($cityId, Request $request)
+    {
+        $cityzone = new Cityzone();
+        $city = $cityzone::findOrFail($cityId);
         $city->update($request->all());
 
         return response()->json($city, 200);
     }
-
 }
