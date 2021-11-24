@@ -1,4 +1,5 @@
 <?php
+
 /*
 |--------------------------------------------------------------------------
 | Bike history controller
@@ -15,13 +16,13 @@ use Illuminate\Http\Request;
  */
 class BikeHistoryController extends Controller
 {
-    public function showOneBikesHistory($bike_id)
+    public function showOneBikesHistory($bikeId)
     {
-        return response()->json(Bikelog::where('bike_id', $bike_id)->get());
+        return response()->json(Bikelog::where('bike_id', $bikeId)->get());
     }
 
-    public function showOneUsersBikeHistory($customer_id)
+    public function showOneUsersBikeHistory($customerId)
     {
-        return response()->json(Bikelog::where('customer_id', $customer_id)->get());
+        return response()->json(Bikelog::where('customer_id', $customerId)->get());
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /*
 |--------------------------------------------------------------------------
 | Parkings controller
@@ -16,14 +17,16 @@ use Illuminate\Http\Request;
 class ParkingSpacesController extends Controller
 {
 
-    function showAllParkingSpaces()
+    public function showAllParkingSpaces()
     {
-        return response()->json(Parkingspace::all());
+        $parkingspace = new Parkingspace();
+        return response()->json($parkingspace::all());
     }
 
-    public function showOneParkingSpace($id)
+    public function showOneParkingSpace($parkingspaceId)
     {
-        return response()->json(Parkingspace::find($id));
+        $parkingspace = new Parkingspace();
+        return response()->json($parkingspace::find($parkingspaceId));
     }
 
     public function create(Request $request)
@@ -36,16 +39,18 @@ class ParkingSpacesController extends Controller
          *  "radie"
          *  "name"
         */
-        $bike = Parkingspace::create($request->all());
+        $parkingspace = new Parkingspace();
+        $parkingspace = $parkingspace::create($request->all());
 
-        return response()->json($bike, 201);
+        return response()->json($parkingspace, 201);
     }
 
-    public function update($id, Request $request)
+    public function update($parkingspaceId, Request $request)
     {
-        $bike = Parkingspace::findOrFail($id);
-        $bike->update($request->all());
+        $parkingspace = new Parkingspace();
+        $parkingspace = $parkingspace::findOrFail($parkingspaceId);
+        $parkingspace->update($request->all());
 
-        return response()->json($bike, 200);
+        return response()->json($parkingspace, 200);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /*
 |--------------------------------------------------------------------------
 | Chargingstations controller
@@ -16,14 +17,16 @@ use Illuminate\Http\Request;
 class ChargingStationsController extends Controller
 {
 
-    function showAllChargingstations()
+    public function showAllChargingstations()
     {
-        return response()->json(Chargingstation::all());
+        $chargingstation = new Chargingstation();
+        return response()->json($chargingstation::all());
     }
 
-    public function showOneChargingstations($id)
+    public function showOneChargingstation($chargingstationId)
     {
-        return response()->json(Chargingstation::find($id));
+        $chargingstation = new Chargingstation();
+        return response()->json($chargingstation::find($chargingstationId));
     }
 
     public function create(Request $request)
@@ -36,14 +39,16 @@ class ChargingStationsController extends Controller
          *  "radie"
          *  "name"
         */
-        $bike = Chargingstation::create($request->all());
+        $chargingstation = new Chargingstation();
+        $bike = $chargingstation::create($request->all());
 
         return response()->json($bike, 201);
     }
 
-    public function update($id, Request $request)
+    public function update($chargingstationId, Request $request)
     {
-        $bike = Chargingstation::findOrFail($id);
+        $chargingstation = new Chargingstation();
+        $bike = $chargingstation::findOrFail($chargingstationId);
         $bike->update($request->all());
 
         return response()->json($bike, 200);
