@@ -22,6 +22,15 @@ $router->group(['prefix' => 'sparkapi/v1'], function () use ($router) {
     | City
     |----------------------------------------------------------------------
     */
+    $router->get('users', ['uses' => 'UserController@showAllUsers']);
+    $router->get('users/{userId}', ['uses' => 'UserController@showOneUser']);
+    $router->put('users/{userId}', ['uses' => 'UserController@update']);
+    $router->post('users', ['uses' => 'UserController@create']);
+    /*
+    |----------------------------------------------------------------------
+    | City
+    |----------------------------------------------------------------------
+    */
     $router->get('cities', ['uses' => 'CityController@showAllCities']);
     $router->get('cities/{cityId}', ['uses' => 'CityController@showOneCity']);
     $router->put('cities/{cityId}', ['uses' => 'CityController@update']);
@@ -77,9 +86,13 @@ $router->group(['prefix' => 'sparkapi/v1'], function () use ($router) {
     | Bikehistory
     |----------------------------------------------------------------------
     */
+    $router->get('bikehistory', ['uses' => 'BikeHistoryController@showAll']);
     $router->get('bikehistory/bike/{bikeId}', ['uses' => 'BikeHistoryController@showOneBikesHistory']);
     $router->get('bikehistory/user/{customerId}', ['uses' => 'BikeHistoryController@showOneUsersBikeHistory']);
-
+    $router->get('bikehistory/{historyId}', ['uses' => 'BikeHistoryController@showSpecifikBikeHistory']);
+    $router->post('bikehistory/start', ['uses' => 'BikeHistoryController@start']);
+    //Använder userId, för tänker att en användare bara kommer kunna ha igång en cykel åt gången.
+    $router->put('bikehistory/stop/{customerId}', ['uses' => 'BikeHistoryController@stop']);
     /*
     |----------------------------------------------------------------------
     | Orders

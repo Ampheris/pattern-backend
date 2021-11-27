@@ -61,4 +61,13 @@ class BikeController extends Controller
         $bike::findOrFail($bikeId)->delete();
         return response('Deleted Successfully', 200);
     }
+
+    public function changeStatusOnBike($bikeId, $status)
+    {
+        $bike = new Bike();
+        $bike = $bike::findOrFail($bikeId);
+        $bike->update(['status' => $status]);
+
+        return response()->json($bike, 200);
+    }
 }
