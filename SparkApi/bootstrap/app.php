@@ -92,8 +92,10 @@ $app->configure('app');
 */
 
 // $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
+$app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
+$app->register(Laravel\Socialite\SocialiteServiceProvider::class);
+$app->alias('Socialite', Laravel\Socialite\Facades\Socialite::class);
 
 /*
 |--------------------------------------------------------------------------

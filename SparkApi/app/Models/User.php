@@ -23,7 +23,9 @@ class User extends Authenticatable
         'balance',
         'card_info',
         'csv',
-        'expiration_date'
+        'expiration_date',
+        'provider',
+        'provider_id'
     ];
 
     /**

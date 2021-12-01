@@ -19,6 +19,13 @@ $router->get('/', function () use ($router) {
 $router->group(['prefix' => 'sparkapi/v1'], function () use ($router) {
     /*
     |----------------------------------------------------------------------
+    | Login via socials
+    |----------------------------------------------------------------------
+    */
+    $router->get('login/{provider}', 'SocialController@redirect');
+    $router->get('login/{provider}/callback','SocialController@Callback');
+    /*
+    |----------------------------------------------------------------------
     | City
     |----------------------------------------------------------------------
     */
