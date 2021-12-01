@@ -15,7 +15,8 @@ class Order extends Model
 
     protected $fillable = [
         'customer_id',
-        'date',
-        'total_price'
+        'total_price',
+        'subscription',
+        'bikehistory_id'
     ];
 }

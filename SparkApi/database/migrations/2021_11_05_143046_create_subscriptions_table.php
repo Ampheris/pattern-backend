@@ -17,8 +17,9 @@ class CreateSubscriptionsTable extends Migration
             $table->id();
             $table->dateTime('start_date');
             $table->dateTime('renewal_date');
-            $table->tinyInteger('paid')->default(0);
+            $table->dateTime('cancelation_date')->nullable();
             $table->unsignedBigInteger('customer_id');
+            $table->float('price');
             $table->timestamps();
 
             $table->foreign('customer_id')->references('id')->on('users')->onDelete('cascade');

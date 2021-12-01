@@ -12,7 +12,8 @@ class Subscription extends Model
     protected $fillable = [
         'start_date',
         'renewal_date',
-        'paid',
-        'customer_id'
+        'customer_id',
+        'cancelation_date',
+        'price'
     ];
 }
