@@ -19,22 +19,22 @@ class OrdersController extends Controller
         return response()->json($order::all());
     }
 
-    // public function showOneOrder($orderId)
-    // {
-    //     $order = new Order();
-    //     return response()->json($order::where($orderId)->get());
-    // }
-    //
-    // public function showCustomersOrders($customerId)
-    // {
-    //     $order = new Order();
-    //     return response()->json($order::where($customerId)->get());
-    // }
+    public function showCustomersOrders($customerId)
+    {
+        $order = new Order();
+        return response()->json($order::where('customer_id', $customerId)->get());
+    }
 
-    public function ShowOrderForBikeride($bikehistoryId)
+    public function showOrderForBikeride($bikehistoryId)
     {
         $order = new Order();
         return response()->json($order::where('bikehistory_id', $bikehistoryId)->get());
+    }
+
+    public function showSingleOrder($orderId)
+    {
+        $order = new Order();
+        return response()->json($order::find($orderId));
     }
 
     public function create(Request $request)

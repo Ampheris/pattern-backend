@@ -15,22 +15,13 @@ class UserController extends Controller
         $bike = new User();
         return response()->json($bike::all());
     }
-    /**
-     * Show the profile for a given user.
-     *
-     * @param  int  $id
-     * @return \Illuminate\View\View
-     */
+
     public function showOneUser($userId)
     {
         $user = new User();
-        return response()->json($user::where($userId)->get());
+        return response()->json($user::find($userId));
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     */
     public function create(Request $request)
     {
         $user = new User();

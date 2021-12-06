@@ -9,10 +9,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 // use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+* @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User findOrFail($value)
+* @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User find($value)
+* @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User create($value)
+*/
+
 class User extends Model
 {
     // use HasApiTokens;
     use HasFactory;
+
     // use Notifiable;
 
     /**

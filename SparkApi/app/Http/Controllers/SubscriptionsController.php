@@ -34,17 +34,18 @@ class SubscriptionsController extends Controller
         return response()->json($subscription::where('customer_id', $customerId)->latest()->first());
     }
 
-    public function showCustomersAllSubscriptions($customerId)
-    {
-        $subscription = new Subscription();
-        return response()->json($subscription::where($customerId)->get());
-    }
+    // public function showCustomersAllSubscriptions($customerId)
+    // {
+    //     $subscription = new Subscription();
+    //     return response()->json($subscription::where($customerId)->get());
+    // }
 
     public function start(Request $request)
     {
         date_default_timezone_set('Europe/Stockholm');
-        $date = Carbon::today();
-        $renewalDate = Carbon::today();
+        $carbon = new Carbon();
+        $date = $carbon::now();
+        $renewalDate = $carbon::now();
         $renewalDate = $renewalDate->addDays(30);
 
         $currentSubscription = Subscription::where('customer_id', $request['customer_id'])->latest()->first();
@@ -57,7 +58,6 @@ class SubscriptionsController extends Controller
         *  "start_date"
         *  "renewal_date"
         *  "cancelation_date"
-        *  "paid"
         *  "price"
         *  "user_id"
         */
@@ -75,26 +75,27 @@ class SubscriptionsController extends Controller
 
     public function renew($subscriptionId, Request $request)
     {
-        $todaysDate = Carbon::today();
+        $carbon = new Carbon();
+        $todaysDate = $carbon::now();
 
         $subscription = new Subscription();
         $subscription = $subscription::find($subscriptionId);
 
         $user = new User();
-        $user = $user::find($subscription->customer_id);
+        $user = $user::find($subscription['customer_id']);
 
-        if ($subscription && Carbon::parse($subscription->renewal_date)->lt($todaysDate)) {
-            return response('The subscription is active until ' . $subscription->renewal_date . ', and does not need to be renewed', 500);
+        if ($subscription['cancelation_date != null']) {
+            return response()->json(['message' => 'Subscription not active'], 500);
         }
 
-        if ($user && is_null($user->card_info)) {
-            return response('The user has not registered a payement method.', 500);
+        if ($carbon::parse($subscription['renewal_date'])->gt($todaysDate)) {
+            return response()->json(['message' => 'The subscription is active until ' . $subscription['renewal_date'] . ', and does not need to be renewed'], 500);
         }
 
-        $renewalDate = Carbon::today();
+        $renewalDate = $carbon::now();
         $renewalDate = $renewalDate->addDays(30);
 
-        $request['start_date'] = $date;
+        $request['start_date'] = $todaysDate;
         $request['renewal_date'] = $renewalDate;
 
         $subscription->update($request->all());
@@ -117,12 +118,12 @@ class SubscriptionsController extends Controller
         $order = $order::create($data);
 
         return response()->json($order, 201);
-
     }
 
-    public function stop($subscriptionId, $status)
+    public function stop($subscriptionId)
     {
-        $date = Carbon::today();
+        $carbon = new Carbon();
+        $date = $carbon::now();
 
         $subscription = new Subscription();
         $subscription = $subscription::findOrFail($subscriptionId);

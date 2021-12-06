@@ -42,7 +42,6 @@ class BikeInChargingStationController extends Controller
         } catch (\Exception $e) {
             return response('Bike already in placed in a chargingstation.', 500);
         }
-
     }
 
     public function remove($bikeId)

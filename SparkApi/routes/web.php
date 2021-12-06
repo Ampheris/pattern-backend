@@ -89,7 +89,7 @@ $router->group(['prefix' => 'sparkapi/v1'], function () use ($router) {
     $router->get('bikehistory', ['uses' => 'BikeHistoryController@showAll']);
     $router->get('bikehistory/bike/{bikeId}', ['uses' => 'BikeHistoryController@showOneBikesHistory']);
     $router->get('bikehistory/user/{customerId}', ['uses' => 'BikeHistoryController@showOneUsersBikeHistory']);
-    $router->get('bikehistory/user/active/{customerId}', ['uses' => 'BikeHistoryController@showUsersActiveBikeHistory']);
+    // $router->get('bikehistory/user/active/{customerId}', ['uses' => 'BikeHistoryController@showUsersActiveBikeHistory']);
     $router->get('bikehistory/{historyId}', ['uses' => 'BikeHistoryController@showSpecifikBikeHistory']);
     $router->post('bikehistory/start', ['uses' => 'BikeHistoryController@start']);
     //Använder userId, för tänker att en användare bara kommer kunna ha igång en cykel åt gången.
@@ -101,8 +101,9 @@ $router->group(['prefix' => 'sparkapi/v1'], function () use ($router) {
     */
     $router->get('orders', ['uses' => 'OrdersController@ShowAllOrders']);
     $router->post('orders', ['uses' => 'OrdersController@create']);
-    // $router->get('orders/{customerId}', ['uses' => 'OrdersController@ShowCustomersOrders']);
-    $router->get('orders/{bikehistoryId}', ['uses' => 'OrdersController@ShowOrderForBikeride']);
+    $router->get('orders/{orderId}', ['uses' => 'OrdersController@ShowSingleOrder']);
+    $router->get('orders/user/{customerId}', ['uses' => 'OrdersController@ShowCustomersOrders']);
+    $router->get('orders/history/{bikehistoryId}', ['uses' => 'OrdersController@ShowOrderForBikeride']);
 
     /*
     |----------------------------------------------------------------------
@@ -120,5 +121,5 @@ $router->group(['prefix' => 'sparkapi/v1'], function () use ($router) {
     $router->put('subscriptions/stop/{subscriptionId}', ['uses' => 'SubscriptionsController@stop']);
     $router->put('subscriptions/renew/{subscriptionId}', ['uses' => 'SubscriptionsController@renew']);
     $router->get('subscriptions/{customerId}', ['uses' => 'SubscriptionsController@ShowCustomersCurrentSubscription']);
-    $router->get('subscriptions/all/{customerId}', ['uses' => 'SubscriptionsController@ShowAllCustomersSubscriptions']);
+    // $router->get('subscriptions/all/{customerId}', ['uses' => 'SubscriptionsController@ShowAllCustomersSubscriptions']);
 });

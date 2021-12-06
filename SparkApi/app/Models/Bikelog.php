@@ -9,7 +9,9 @@ use App\Models\User;
 /**
 * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChargingstationBike where($key, $value)
 * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChargingstationBike create($value)
+* @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Cityzone find($value)
 */
+
 class Bikelog extends Model
 {
     use HasFactory;
