@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
-* @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChargingstationBike where($value, $value)
-* @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChargingstationBike create($value)
+* @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order where($key, $value)
+* @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order create($value)
+* @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order find($value)
 */
 class Order extends Model
 {
