@@ -1,3 +1,5 @@
+## Contributing
+
 # Git Workflow
 
 * Create branch: git checkout -b *branch_name*

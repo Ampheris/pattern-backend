@@ -1,4 +1,5 @@
 <?php
+
 /*
 |--------------------------------------------------------------------------
 | Bike controller
@@ -12,19 +13,28 @@ use Illuminate\Http\Request;
 
 class OrdersController extends Controller
 {
-    public function ShowAllOrders()
+    public function showAllOrders()
     {
-        return response()->json(Order::all());
+        $order = new Order();
+        return response()->json($order::all());
     }
 
-    public function ShowOneOrder($order_id)
+    public function showCustomersOrders($customerId)
     {
-        return response()->json(Order::where($order_id)->get());
+        $order = new Order();
+        return response()->json($order::where('customer_id', $customerId)->get());
     }
 
-    public function ShowCustomersOrders($customer_id)
+    public function showOrderForBikeride($bikehistoryId)
     {
-        return response()->json(Order::where($customer_id)->get());
+        $order = new Order();
+        return response()->json($order::where('bikehistory_id', $bikehistoryId)->get());
+    }
+
+    public function showSingleOrder($orderId)
+    {
+        $order = new Order();
+        return response()->json($order::find($orderId));
     }
 
     public function create(Request $request)
@@ -36,9 +46,9 @@ class OrdersController extends Controller
         *  "total_price"
         */
 
-        $order = Order::create($request->all());
+        $order = new Order();
+        $order = $order::create($request->all());
 
         return response()->json($order, 201);
     }
-
 }

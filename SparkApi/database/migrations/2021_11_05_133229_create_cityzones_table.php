@@ -24,7 +24,8 @@ class CreateCityzonesTable extends Migration
         });
         $this->migrationCreate();
     }
-    public function migrationCreate() {
+    public function migrationCreate()
+    {
         $city = new Cityzone();
         $city->city = "Karlskrona";
         $city->X = 0;
