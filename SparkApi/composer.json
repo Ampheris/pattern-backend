@@ -7,8 +7,8 @@
     "require": {
         "php": "^7.3|^8.0",
         "laravel/lumen-framework": "^8.3.1",
-        "laravel/socialite": "^5.2",
-        "socialiteproviders/github": "^4.1"
+        "ext-curl": "*",
+        "ext-json": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

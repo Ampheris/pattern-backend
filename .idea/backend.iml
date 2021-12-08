@@ -9,9 +9,6 @@
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/psr/container" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/psr/event-dispatcher" />
-      <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/psr/http-client" />
-      <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/psr/http-factory" />
-      <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/psr/http-message" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/psr/log" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/psr/simple-cache" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/opis/closure" />
@@ -19,7 +16,6 @@
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/brick/math" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/nikic/fast-route" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/nikic/php-parser" />
-      <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/league/oauth1-client" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/nesbot/carbon" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/ramsey/collection" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/ramsey/uuid" />
@@ -27,7 +23,6 @@
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/egulias/email-validator" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/laravel/lumen-framework" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/laravel/serializable-closure" />
-      <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/laravel/socialite" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/mockery/mockery" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/monolog/monolog" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/myclabs/deep-copy" />
@@ -46,7 +41,6 @@
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/symfony/event-dispatcher" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/symfony/event-dispatcher-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/symfony/finder" />
-      <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/symfony/http-client-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/symfony/http-foundation" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/symfony/http-kernel" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/symfony/mime" />
@@ -72,7 +66,6 @@
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/fakerphp/faker" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/hamcrest/hamcrest-php" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/phpoption/phpoption" />
-      <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/ralouphie/getallheaders" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/sebastian/cli-parser" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/sebastian/code-unit" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/sebastian/code-unit-reverse-lookup" />
@@ -90,9 +83,6 @@
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/sebastian/type" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/sebastian/version" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/webmozart/assert" />
-      <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/guzzlehttp/guzzle" />
-      <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/guzzlehttp/promises" />
-      <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/guzzlehttp/psr7" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/illuminate/auth" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/illuminate/broadcasting" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/illuminate/bus" />
@@ -125,8 +115,6 @@
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/phpdocumentor/type-resolver" />
       <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/graham-campbell/result-type" />
-      <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/socialiteproviders/github" />
-      <excludeFolder url="file://$MODULE_DIR$/SparkApi/vendor/socialiteproviders/manager" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
