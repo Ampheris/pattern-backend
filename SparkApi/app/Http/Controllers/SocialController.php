@@ -73,7 +73,7 @@ class SocialController extends Controller
         }
 
         // Login user
-        //Auth::login($user);
+        //Auth::login($user, $remember=true );
         $getUser = DB::table('users')->where('github_id',$user->id)->value('id');;
 
         return $getUser;
