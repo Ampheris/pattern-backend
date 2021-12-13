@@ -16,6 +16,7 @@ class Bike extends Model
 
     protected $fillable = [
         'status',
+        'name',
         'battery',
         'velocity',
         'X',
