@@ -22,7 +22,7 @@ class OrdersController extends Controller
     public function showCustomersOrders($customerId)
     {
         $order = new Order();
-        return response()->json($order::where('customer_id', $customerId)->get());
+        return response()->json($order::where('customer_id', $customerId)->orderBy('created_at', 'desc')->get());
     }
 
     public function showOrderForBikeride($bikehistoryId)
@@ -34,7 +34,7 @@ class OrdersController extends Controller
     public function showSingleOrder($orderId)
     {
         $order = new Order();
-        return response()->json($order::find($orderId));
+        return response()->json($order::find($orderId)->get());
     }
 
     public function create(Request $request)
