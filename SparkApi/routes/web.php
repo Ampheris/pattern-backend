@@ -89,7 +89,7 @@ $router->group(['prefix' => 'sparkapi/v1'], function () use ($router) {
     $router->get('bikehistory', ['uses' => 'BikeHistoryController@showAll']);
     $router->get('bikehistory/bike/{bikeId}', ['uses' => 'BikeHistoryController@showOneBikesHistory']);
     $router->get('bikehistory/user/{customerId}', ['uses' => 'BikeHistoryController@showOneUsersBikeHistory']);
-    // $router->get('bikehistory/user/active/{customerId}', ['uses' => 'BikeHistoryController@showUsersActiveBikeHistory']);
+    $router->get('bikehistory/user/active/{customerId}', ['uses' => 'BikeHistoryController@showUsersActiveBikeHistory']);
     $router->get('bikehistory/{historyId}', ['uses' => 'BikeHistoryController@showSpecifikBikeHistory']);
     $router->post('bikehistory/start', ['uses' => 'BikeHistoryController@start']);
     //Använder userId, för tänker att en användare bara kommer kunna ha igång en cykel åt gången.

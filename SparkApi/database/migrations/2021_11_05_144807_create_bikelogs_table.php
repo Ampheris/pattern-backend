@@ -21,6 +21,7 @@ class CreateBikelogsTable extends Migration
             $table->float('stop_x')->nullable();
             $table->float('stop_y')->nullable();
             $table->dateTime('stop_time')->nullable();
+            $table->tinyInteger('inside_parking_area')->deafult(0)->nullable();
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('bike_id');
             $table->timestamps();

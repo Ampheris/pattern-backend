@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\Order;
 
 /**
 * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChargingstationBike where($key, $value)
@@ -24,6 +25,7 @@ class Bikelog extends Model
         'stop_y',
         'stop_time',
         'customer_id',
-        'bike_id'
+        'bike_id',
+        'inside_parking_area'
     ];
 }
