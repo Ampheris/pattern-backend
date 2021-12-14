@@ -17,7 +17,6 @@ class CreateChargingstationBikesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('chargingstation_id');
             $table->unsignedBigInteger('bike_id')->unique();
-            $table->dateTime('arrival');
             // $table->dateTime('departure')->nullable();
             $table->timestamps();
 

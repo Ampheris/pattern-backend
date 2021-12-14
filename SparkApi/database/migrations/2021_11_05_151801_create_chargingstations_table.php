@@ -25,14 +25,31 @@ class CreateChargingstationsTable extends Migration
         });
         $this->migrationCreate();
     }
+    
     public function migrationCreate() {
-        $station = new Chargingstation();
-        $station->X = 0.025;
-        $station->Y = 0.025;
-        $station->radius = 0.005;
-        $station->name = 'hamnen';
-        $station->save();
-    }
+            $position = 0.025;
+
+            $station = new Chargingstation();
+            $station->X = 59.3251172;
+            $station->Y = 18.0710935 - $position;
+            $station->radius = 1/110;
+            $station->name = 'Stureplan';
+            $station->save();
+
+            $station = new Chargingstation();
+            $station->X = 55.6052931;
+            $station->Y = 13.0001566 - $position;
+            $station->radius = 1/110;
+            $station->name = 'Vattnet';
+            $station->save();
+
+            $station = new Chargingstation();
+            $station->X = 57.7072326;
+            $station->Y = 11.9670171 - $position;
+            $station->radius = 1/110;
+            $station->name = 'Göran';
+            $station->save();
+        }
     /**
      * Reverse the migrations.
      *
