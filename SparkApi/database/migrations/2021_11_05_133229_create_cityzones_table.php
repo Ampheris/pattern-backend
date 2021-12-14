@@ -24,15 +24,30 @@ class CreateCityzonesTable extends Migration
         });
         $this->migrationCreate();
     }
+    
     public function migrationCreate()
-    {
-        $city = new Cityzone();
-        $city->city = "Karlskrona";
-        $city->X = 0;
-        $city->Y = 0;
-        $city->radius = 0.25;
-        $city->save();
-    }
+        {
+            $city = new Cityzone();
+            $city->city = "Stockholm";
+            $city->X = 59.3251172;
+            $city->Y = 18.0710935;
+            $city->radius = 18/110;
+            $city->save();
+
+            $city = new Cityzone();
+            $city->city = "Malmö";
+            $city->X = 55.6052931;
+            $city->Y = 13.0001566;
+            $city->radius = 13/110;
+            $city->save();
+
+            $city = new Cityzone();
+            $city->city = "Göteborg";
+            $city->X = 57.7072326;
+            $city->Y = 11.9670171;
+            $city->radius = 11/110;
+            $city->save();
+        }
     /**
      * Reverse the migrations.
      *

@@ -33,7 +33,6 @@ class BikeInParkingSpaceController extends Controller
          * Requires:
          *  "parkingspace_id"
          *  "bike_id"
-         *  "arrival"
         */
         $parkingspaceBike = new ParkingspaceBike();
         try {

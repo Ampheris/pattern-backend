@@ -15,8 +15,6 @@ class ParkingspaceBike extends Model
 
     protected $fillable = [
         'parkingspace_id',
-        'bike_id',
-        'arrival',
-        'departure'
+        'bike_id'
     ];
 }

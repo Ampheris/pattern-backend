@@ -33,7 +33,6 @@ class BikeInChargingStationController extends Controller
          * Requires:
          *  "chargingstation_id"
          *  "bike_id"
-         *  "arrival"
         */
         $chargingstationBike = new ChargingstationBike();
         try {
