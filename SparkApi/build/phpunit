@@ -1,3 +1,18 @@
 PHPUnit 9.5.10 by Sebastian Bergmann and contributors.
 
-[30;43mNo tests executed![0m
+[41;37mF[0m                                                                   1 / 1 (100%)
+
+Time: 00:01.706, Memory: 8.00 MB
+
+There was 1 failure:
+
+1) Tests\Unit\BikeHistoryControllerTest::testShowOneBikesHistory
+Failed asserting that an array has the key 'data'.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\vendor\illuminate\testing\AssertableJsonString.php:252
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\vendor\illuminate\testing\TestResponse.php:798
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\vendor\laravel\lumen-framework\src\Testing\Concerns\MakesHttpRequests.php:279
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\BikeHistoryControllerTest.php:50
+
+[37;41mFAILURES![0m
+[37;41mTests: 1[0m[37;41m, Assertions: 4[0m[37;41m, Failures: 1[0m[37;41m.[0m

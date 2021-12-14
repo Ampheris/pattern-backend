@@ -14,9 +14,11 @@ use App\Models\Bike;
 use App\Models\Chargingstation;
 use App\Models\Parkingspace;
 use App\Models\User;
+use App\Models\Subscription;
 use App\Http\Controllers\BikeController;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 /**
  *
@@ -37,14 +39,24 @@ class BikeHistoryController extends Controller
 
     public function showOneUsersBikeHistory($customerId)
     {
-        $bikelog = new Bikelog();
-        return response()->json($bikelog::where('customer_id', $customerId)->get());
+        $bikelog = DB::table('bikelogs')
+                    ->leftJoin('orders', 'bikelogs.id', '=', 'orders.bikehistory_id')
+                    ->select('bikelogs.*', 'orders.*')
+                    ->where('bikelogs.customer_id', $customerId)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+        return response()->json($bikelog);
     }
 
     public function showSpecifikBikeHistory($historyId)
     {
         $bikelog = new Bikelog();
-        return response()->json($bikelog::find($historyId));
+        $bikelog = DB::table('bikelogs')
+                    ->leftJoin('orders', 'bikelogs.id', '=', 'orders.bikehistory_id')
+                    ->select('bikelogs.*', 'orders.*')
+                    ->where('bikelogs.id', $historyId)
+                    ->get();
+        return response()->json($bikelog);
     }
 
     public function showUsersActiveBikeHistory($customerId)
@@ -125,39 +137,50 @@ class BikeHistoryController extends Controller
             'stop_y' => $bike['Y']
         ];
 
-        $user = new User();
-        $user = $user::findOrFail($customerId);
-
-        $bikeRidePrice = $this->calculatePrice($usersLastBikeRide, $bike);
-        $userBalance = $user['balance'];
-
-        //Kontrollera att användaren har tillräckligt med pengar för att betala åkturen
-        if ($bikeRidePrice > $userBalance) {
-            return response()->json(['message' => 'User does not have enough money to pay for bikeride.'], 500);
-        }
-
-        $user->update(['balance' => $userBalance - $bikeRidePrice]);
-        $usersLastBikeRide->update($data);
-
         //Ändra status till available på den cykel som nu stannar.
         $bikeController = new BikeController();
         $bikeController->changeStatusOnBike($usersLastBikeRide['bike_id'], 'available');
 
-        //Skapa en order för åkturen
-        $orderData = [
-            'customer_id' => $customerId,
-            'order_date' => $date,
-            'total_price' => $bikeRidePrice,
-            'bikehistory_id' => $usersLastBikeRide['id']
-        ];
+        //Kolla så användaren inte har en aktiv subscription, och i så fall skapa en order
+        $subscription = new Subscription();
+        $subscription = $subscription::where('customer_id', $customerId)->latest()->first();
+        // var_dump($subscription['id']);
+        if (is_null($subscription) || (!is_null($subscription['cancelation_date']) && $subscription['cancelation_date'] > $subscription['renewal_date'])) {
+            $user = new User();
+            $user = $user::findOrFail($customerId);
 
-        $order = new Order();
-        $order = $order::create($orderData);
+            $bikeRidePrice = $this->calculatePrice($usersLastBikeRide, $bike);
+            $userBalance = $user['balance'];
 
+            //Kontrollera att användaren har tillräckligt med pengar för att betala åkturen
+            if ($bikeRidePrice > $userBalance) {
+                return response()->json(['message' => 'User does not have enough money to pay for bikeride.'], 500);
+            }
+
+            $user->update(['balance' => $userBalance - $bikeRidePrice]);
+
+            //Skapa en order för åkturen
+            $orderData = [
+                'customer_id' => $customerId,
+                'order_date' => $date,
+                'total_price' => $bikeRidePrice,
+                'bikehistory_id' => $usersLastBikeRide['id']
+            ];
+
+            $order = new Order();
+            $order = $order::create($orderData);
+        }
+
+        if ($this->checkIfInsideZone($bike)) {
+            $data['inside_parking_area'] = 1;
+        }
+
+        $usersLastBikeRide->update($data);
         return response()->json($usersLastBikeRide, 200);
     }
 
-    /**
+
+    /*
      * Function to determine if the bike is located within a parkingspace or chargingstation -> returns true, else false.
      *
      * @return bool
@@ -229,6 +252,7 @@ class BikeHistoryController extends Controller
             return $totalTax;
         }
 
+        $bikeride['inside_parking_area'] = 0;
         $totalTax = $taxForTime + 20;
         return $totalTax;
     }

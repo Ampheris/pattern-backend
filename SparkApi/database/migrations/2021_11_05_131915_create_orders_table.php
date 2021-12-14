@@ -20,9 +20,9 @@ class CreateOrdersTable extends Migration
             $table->integer('total_price');
             $table->tinyInteger('subscription')->deafult(0)->nullable();
             $table->timestamps();
-
+            
             $table->foreign('customer_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('bikehistory_id')->references('id')->on('bikehistory')->onDelete('cascade');
+            $table->foreign('bikehistory_id')->references('id')->on('bikelogs')->onDelete('cascade');
         });
     }
 
