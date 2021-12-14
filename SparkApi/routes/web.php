@@ -16,21 +16,21 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->group(['prefix' => 'sparkapi/v1'], function () use ($router) {
+$router->group(['middleware' => 'oauth', 'prefix' => 'sparkapi/v1'], function () use ($router) {
     /*
     |----------------------------------------------------------------------
     | Login via socials
     |----------------------------------------------------------------------
     */
-    $router->get('login/github', 'SocialController@redirect');
-    $router->get('login/github/callback','SocialController@Callback');
+    $router->get('login/github', ['as' => 'login.github', 'uses' => 'SocialController@redirect']);
+    $router->get('login/github/callback', ['as' => 'login.github.callback', 'uses' => 'SocialController@Callback']);
     /*
     |----------------------------------------------------------------------
     | City
     |----------------------------------------------------------------------
     */
     $router->get('users', ['uses' => 'UserController@showAllUsers']);
-    $router->get('users/{userId}', ['uses' => 'UserController@showOneUser']);
+    $router->get('users/get', ['uses' => 'UserController@showOneUser']);
     $router->put('users/{userId}', ['uses' => 'UserController@update']);
     $router->post('users', ['uses' => 'UserController@create']);
     /*

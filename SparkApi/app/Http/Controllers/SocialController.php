@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Cookie;
 use Illuminate\Support\Facades\DB;
-use mysql_xdevapi\Exception;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class SocialController extends Controller
@@ -32,10 +30,16 @@ class SocialController extends Controller
         // GET request to get user information
         $user = $this->httpGET($access_token);
 
+        // Checks after the user and updates their information.
+        $this->checkUser(json_decode($user), $access_token);
+
         // User check
-        return $this->checkUser(json_decode($user), $access_token);
+        return redirect('http://localhost:8000/')->withCookie(Cookie::create('access_token', $access_token, httpOnly: False));
     }
 
+    /*
+     * Checks after the user and
+     */
     public function checkUser($user, $access_token)
     {
         // $user is decoded
@@ -46,7 +50,7 @@ class SocialController extends Controller
 
 
         try {
-            $DBUser = DB::table('users')->where('github_id',$user->id)->first();
+            $DBUser = DB::table('users')->where('github_id', $user->id)->first();
         } catch (\Throwable $e) {
             $DBUser = null;
         }
@@ -58,12 +62,14 @@ class SocialController extends Controller
                 'email' => $email,
                 'github_name' => $name,
                 'avatar_url' => $avatar_url,
-                'updated_at' => Carbon::now()
+                'updated_at' => Carbon::now(),
+                'token_expires' => Carbon::now()->addHour()
             ]);
         } else {
             // If not exist, create user
             DB::table('users')->insert([
                 'access_token' => $access_token,
+                'token_expires' => Carbon::now()->addHour(),
                 'email' => $email,
                 'github_name' => $name,
                 'github_id' => $github_id,
@@ -71,12 +77,6 @@ class SocialController extends Controller
                 'created_at' => Carbon::now()
             ]);
         }
-
-        // Login user
-        //Auth::login($user, $remember=true );
-        $getUser = DB::table('users')->where('github_id',$user->id)->value('id');;
-
-        return $getUser;
     }
 
     public function getAccessToken($url, $code)

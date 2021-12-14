@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('expiration_date', 5)->nullable();
             $table->string('github_id')->unique();
             $table->string('access_token');
+            $table->string('token_expires');
             $table->string('avatar_url')->nullable();
             $table->string('github_name')->nullable();
             $table->timestamps();

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-// use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Hash;
+
 
 class UserController extends Controller
 {
@@ -16,10 +15,9 @@ class UserController extends Controller
         return response()->json($bike::all());
     }
 
-    public function showOneUser($userId)
+    public function showOneUser(Request $request): JsonResponse
     {
-        $user = new User();
-        return response()->json($user::find($userId));
+        return response()->json($request->user());
     }
 
     public function create(Request $request)
