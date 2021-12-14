@@ -9,7 +9,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\ParkingspaceBike;
+use App\Models\Bike;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  *
@@ -19,7 +21,19 @@ class BikeInParkingSpaceController extends Controller
 
     public function showAllBikesInParkingSpace($parkingspaceId)
     {
-        return response()->json(ParkingspaceBike::where('parkingspace_id', $parkingspaceId)->get());
+        // $bike = new Bike();
+        // $parkingspaceBike = new ParkingspaceBike();
+        // $parkingspaceBike = $parkingspaceBike::where('parkingspace_id', $parkingspaceId)->get();
+
+        $parkingspaceBikes = DB::table('bikes')
+                    ->leftJoin('parkingspace_bikes', 'bikes.id', '=', 'parkingspace_bikes.bike_id')
+                    ->select('bikes.*', 'parkingspace_bikes.*')
+                    ->where('parkingspace_bikes.parkingspace_id', $parkingspaceId)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+        return response()->json($parkingspaceBikes);
+
+        // return response()->json(ParkingspaceBike::where('parkingspace_id', $parkingspaceId)->get());
     }
 
     public function showBikeInParkingSpace($bikeId)

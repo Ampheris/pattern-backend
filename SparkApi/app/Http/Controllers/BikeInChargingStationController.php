@@ -9,7 +9,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\ChargingstationBike;
+use App\Models\Bike;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  *
@@ -19,7 +21,14 @@ class BikeInChargingStationController extends Controller
 
     public function showAllBikesInChargingstation($chargingstationId)
     {
-        return response()->json(ChargingstationBike::where('chargingstation_id', $chargingstationId)->get());
+        $chargingstationBikes = DB::table('bikes')
+                    ->leftJoin('chargingstation_bikes', 'bikes.id', '=', 'chargingstation_bikes.bike_id')
+                    ->select('bikes.*', 'chargingstation_bikes.*')
+                    ->where('chargingstation_bikes.chargingstation_id', $chargingstationId)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+        return response()->json($chargingstationBikes);
+        // return response()->json(ChargingstationBike::where('chargingstation_id', $chargingstationId)->get());
     }
 
     public function showBikeInChargingStation($bikeId)
