@@ -25,14 +25,31 @@ class CreateParkingspacesTable extends Migration
         });
         $this->migrationCreate();
     }
+    
     public function migrationCreate()
     {
-        $station = new Parkingspace();
-        $station->X = -0.025;
-        $station->Y = -0.025;
-        $station->radius = 0.005;
-        $station->name = 'centralen';
-        $station->save();
+        $position = 0.025;
+
+        $city = new Parkingspace();
+        $city->X = 59.3251172 - $position;
+        $city->Y = 18.0710935;
+        $city->radius = 1/110;
+        $city->name = 'T-centralen';
+        $city->save();
+
+        $city = new Parkingspace();
+        $city->X = 55.6052931 - $position;
+        $city->Y = 13.0001566;
+        $city->radius = 1/110;
+        $city->name = 'Red hawk';
+        $city->save();
+
+        $city = new Parkingspace();
+        $city->X = 57.7072326 - $position;
+        $city->Y = 11.9670171;
+        $city->radius = 1/110;
+        $city->name = 'Glenn';
+        $city->save();
     }
     /**
      * Reverse the migrations.
