@@ -15,8 +15,6 @@ class ChargingstationBike extends Model
 
     protected $fillable = [
         'chargingstation_id',
-        'bike_id',
-        'arrival',
-        'departure'
+        'bike_id'
     ];
 }

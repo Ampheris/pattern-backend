@@ -17,7 +17,6 @@ class CreateParkingspaceBikesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('parkingspace_id');
             $table->unsignedBigInteger('bike_id')->unique();
-            $table->dateTime('arrival');
             // $table->dateTime('departure')->nullable();
             $table->timestamps();
 
