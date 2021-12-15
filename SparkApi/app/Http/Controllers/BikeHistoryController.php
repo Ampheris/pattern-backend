@@ -81,10 +81,12 @@ class BikeHistoryController extends Controller
      */
     public function start(Request $request)
     {
+        $user = $request->user();
+        $bike_id = $_GET['bike_id'];
         $bikelog = new Bikelog();
-        $bikesLastRide = $bikelog::where('bike_id', $request->input('bike_id'))->latest()->first();
+        $bikesLastRide = $bikelog::where('bike_id', $bike_id)->latest()->first();
 
-        $usersLastBikeRide = $bikelog::where('customer_id', $request->input('customer_id'))->latest()->first();
+        $usersLastBikeRide = $bikelog::where('customer_id', $user->id)->latest()->first();
 
         //Kontrollera att cykelns senaste påbörjade åkturen är avslutat, innan en ny påbörjas
         if ($bikesLastRide && is_null($bikesLastRide['stop_time'])) {
@@ -99,17 +101,20 @@ class BikeHistoryController extends Controller
         $date = $carbon::now();
 
         $bike = new Bike();
-        $bike = $bike::find($request->input('bike_id'));
+        $bike = $bike::find($bike_id);
 
-        $request['start_time'] = $date;
-        $request['start_x'] = $bike['X'];
-        $request['start_y'] = $bike['Y'];
-
-        $bikelog = $bikelog::create($request->all());
+        DB::table('bikelogs')->insert([
+            'customer_id' => $user->id,
+            'bike_id' => $bike_id,
+            'start_time' => $date,
+            'start_x' => $bike['X'],
+            'start_y' => $bike['Y'],
+            'created_at' => Carbon::now()
+        ]);
 
         //Ändra status till available på den cykel som nu startar.
         $bikeController = new BikeController();
-        $bikeController->changeStatusOnBike($request->input('bike_id'), 'unavailable');
+        $bikeController->changeStatusOnBike($bike_id, 'unavailable');
         return response()->json($bikelog, 201);
     }
 
@@ -151,25 +156,23 @@ class BikeHistoryController extends Controller
         // var_dump($subscription['id']);
         if (is_null($subscription) || (!is_null($subscription['cancelation_date']) && $subscription['cancelation_date'] > $subscription['renewal_date'])) {
             $bikeRidePrice = $this->calculatePrice($usersLastBikeRide, $bike);
-            $userBalance = $user['balance'];
+            $userBalance = $user->balance;
 
             //Kontrollera att användaren har tillräckligt med pengar för att betala åkturen
             if ($bikeRidePrice > $userBalance) {
                 return response()->json(['message' => 'User does not have enough money to pay for bikeride.'], 500);
             }
 
-            $user->update(['balance' => $userBalance - $bikeRidePrice]);
+            DB::table('users')->where('id', $user->id)->update([
+                'balance' => $userBalance - $bikeRidePrice
+            ]);
 
             //Skapa en order för åkturen
-            $orderData = [
+            DB::table('orders')->insert([
                 'customer_id' => $user->id,
-                'order_date' => $date,
                 'total_price' => $bikeRidePrice,
                 'bikehistory_id' => $usersLastBikeRide['id']
-            ];
-
-            $order = new Order();
-            $order = $order::create($orderData);
+            ]);
         }
 
         if ($this->checkIfInsideZone($bike)) {
