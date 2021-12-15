@@ -53,14 +53,17 @@ class SubscriptionsController extends Controller
         $user = $request->user();
 
         try {
-            $currentSubscription = Subscription::where('customer_id', $user->id)->latest()->first();
+            $currentSubscription = DB::table('subscriptions')->where('customer_id', $user->id)->get();
         } catch (\Throwable $e) {
             $currentSubscription = null;
         }
 
-        if ($currentSubscription && is_null($currentSubscription['cancelation_date'])) {
-            return response('The user already has an active subscription.', 500);
+        if ($currentSubscription) {
+            if (!$currentSubscription->cancelation_date) {
+                return response('The user already has an active subscription.', 500);
+            }
         }
+
         /*
         * Requires:
         *  "start_date"
@@ -69,7 +72,6 @@ class SubscriptionsController extends Controller
         *  "price"
         *  "user_id"
         */
-
         DB::table('subscriptions')->insert([
             'start_date' => $date,
             'renewal_date' => $renewalDate,
@@ -80,7 +82,7 @@ class SubscriptionsController extends Controller
 
         $subscription = DB::table('subscriptions')->where('customer_id', $user->id)->first();
 
-        $this->createSubscriptionOrder($subscription);
+        $this->createSubscriptionOrder($user->id);
 
         return response()->json($subscription, 201);
     }
@@ -111,18 +113,18 @@ class SubscriptionsController extends Controller
         return response()->json($subscription, 200);
     }
 
-    public function createSubscriptionOrder($subscription): JsonResponse
+    public function createSubscriptionOrder($user_id): JsonResponse
     {
-        $order = new Order();
+        $subscription = DB::table('subscriptions')->where('customer_id', $user_id)->first();
 
-        $data = [
+        DB::table('orders')->insert([
             'customer_id' => $subscription->customer_id,
             'total_price' => $subscription->price,
-            'order_date' => $subscription->start_date,
-            'subscription' => 1
-        ];
+            'subscription' => 1,
+            'created_at' => Carbon::now()
+        ]);
 
-        $order = $order::create($data);
+        $order = DB::table('orders')->where('subscription', $subscription->id)->first();
 
         return response()->json($order, 201);
     }
@@ -130,13 +132,13 @@ class SubscriptionsController extends Controller
     public function stop(): JsonResponse
     {
         $date = Carbon::now();
-        $sub_id = $_GET['subscription_id'];
+        $sub_id = $_GET['sub_id'];
 
         DB::table('subscriptions')->where('id', $sub_id)->update([
             'cancelation_date' => $date,
             'updated_at' => $date
         ]);
 
-        return response()->json(DB::table('subscriptions')->where('subscription_id', $_GET['subscription_id'])->get(), 200);
+        return response()->json(DB::table('subscriptions')->where('subscription_id', $sub_id)->first(), 200);
     }
 }

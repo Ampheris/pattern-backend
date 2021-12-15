@@ -35,7 +35,7 @@ class OAuthenticate
         else {
             // User does not have an access token cookie, but maybe an api key?
             // todo: add api key check
-            return response('Unauthorized.', 401);
+            return response('Unauthorized', 401);
         }
 
         try {
@@ -43,7 +43,7 @@ class OAuthenticate
             $user = DB::table('users')->where('access_token', $access_token)->first();
             // Is the access token valid?
             if ($user->token_expires < Carbon::now()) {
-                return response('Unauthorized.', 401);
+                return response('Unauthorized', 401);
             }
 
             // Load the user
@@ -52,7 +52,7 @@ class OAuthenticate
             });
 
         } catch (\Throwable $e) {
-            return response('Unauthorized.', 401);
+            return response('Unauthorized', 401);
         }
 
         return $next($request);
