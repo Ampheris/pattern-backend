@@ -33,7 +33,6 @@ class SocialController extends Controller
         // Checks after the user and updates their information.
         $this->checkUser(json_decode($user), $access_token);
 
-        // User check
         return redirect('http://localhost:8000/')->withCookie(Cookie::create('access_token', $access_token, httpOnly: False));
     }
 
@@ -57,7 +56,7 @@ class SocialController extends Controller
 
         if ($DBUser) {
             // If user exist, update user info
-            DB::table('users')->update([
+            DB::table('users')->where('id', $DBUser->id)->update([
                 'access_token' => $access_token,
                 'email' => $email,
                 'github_name' => $name,

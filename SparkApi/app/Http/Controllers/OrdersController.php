@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrdersController extends Controller
 {
@@ -19,10 +20,11 @@ class OrdersController extends Controller
         return response()->json($order::all());
     }
 
-    public function showCustomersOrders($customerId)
+    public function showCustomersOrders(Request $request)
     {
-        $order = new Order();
-        return response()->json($order::where('customer_id', $customerId)->orderBy('created_at', 'desc')->get());
+        $user = $request->user();
+        $order = DB::table('orders')->where('customer_id', $user->id)->orderBy('created_at', 'desc')->get();
+        return response()->json($order);
     }
 
     public function showOrderForBikeride($bikehistoryId)

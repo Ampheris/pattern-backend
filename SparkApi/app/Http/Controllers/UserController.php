@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class UserController extends Controller
@@ -28,11 +29,10 @@ class UserController extends Controller
         return response()->json($user, 201);
     }
 
-    public function update($userId, Request $request)
+    public function update(Request $request)
     {
-        $user = new User();
-        $user = $user::findOrFail($userId);
-        $user->update($request->all());
+        $user = $request->user();
+        DB::table('users')->where('access_token', $user->access_token)->increment('balance', $_GET['balance']);
 
         return response()->json($user, 200);
     }

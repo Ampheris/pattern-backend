@@ -11,8 +11,12 @@ namespace App\Http\Controllers;
 use App\Models\Subscription;
 use App\Models\User;
 use App\Models\Order;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Laravel\Lumen\Http\ResponseFactory;
 
 class SubscriptionsController extends Controller
 {
@@ -28,10 +32,11 @@ class SubscriptionsController extends Controller
     //     return response()->json($subscription::where($customerId)->get());
     // }
 
-    public function showCustomersCurrentSubscription($customerId)
+    public function showCustomersCurrentSubscription(Request $request): JsonResponse
     {
+        $user = $request->user();
         $subscription = new Subscription();
-        return response()->json($subscription::where('customer_id', $customerId)->latest()->first());
+        return response()->json($subscription::where('customer_id', $user->id)->latest()->first());
     }
 
     // public function showCustomersAllSubscriptions($customerId)
@@ -40,15 +45,18 @@ class SubscriptionsController extends Controller
     //     return response()->json($subscription::where($customerId)->get());
     // }
 
-    public function start(Request $request)
+    public function start(Request $request): Response|JsonResponse|ResponseFactory
     {
         date_default_timezone_set('Europe/Stockholm');
-        $carbon = new Carbon();
-        $date = $carbon::now();
-        $renewalDate = $carbon::now();
-        $renewalDate = $renewalDate->addDays(30);
+        $date = Carbon::now();
+        $renewalDate = Carbon::now()->addDays(30);
+        $user = $request->user();
 
-        $currentSubscription = Subscription::where('customer_id', $request['customer_id'])->latest()->first();
+        try {
+            $currentSubscription = Subscription::where('customer_id', $user->id)->latest()->first();
+        } catch (\Throwable $e) {
+            $currentSubscription = null;
+        }
 
         if ($currentSubscription && is_null($currentSubscription['cancelation_date'])) {
             return response('The user already has an active subscription.', 500);
@@ -62,49 +70,48 @@ class SubscriptionsController extends Controller
         *  "user_id"
         */
 
-        $subscription = new Subscription();
-        $request['start_date'] = $date;
-        $request['renewal_date'] = $renewalDate;
-        $request['price'] = 199;
-        $subscription = $subscription::create($request->all());
+        DB::table('subscriptions')->insert([
+            'start_date' => $date,
+            'renewal_date' => $renewalDate,
+            'price' => 199,
+            'customer_id' => $user->id,
+            'created_at' => Carbon::now()
+        ]);
+
+        $subscription = DB::table('subscriptions')->where('customer_id', $user->id)->first();
 
         $this->createSubscriptionOrder($subscription);
 
         return response()->json($subscription, 201);
     }
 
-    public function renew($subscriptionId, Request $request)
+    public function renew(Request $request): JsonResponse
     {
-        $carbon = new Carbon();
-        $todaysDate = $carbon::now();
+        $todaysDate = Carbon::now();
+        $user = $request->user();
 
-        $subscription = new Subscription();
-        $subscription = $subscription::find($subscriptionId);
-
-        $user = new User();
-        $user = $user::find($subscription['customer_id']);
+        $subscription = DB::table('subscriptions')->where('customer_id', $user->id)->first();
 
         if ($subscription['cancelation_date != null']) {
             return response()->json(['message' => 'Subscription not active'], 500);
         }
 
-        if ($carbon::parse($subscription['renewal_date'])->gt($todaysDate)) {
+        if (Carbon::parse($subscription['renewal_date'])->gt($todaysDate)) {
             return response()->json(['message' => 'The subscription is active until ' . $subscription['renewal_date'] . ', and does not need to be renewed'], 500);
         }
 
-        $renewalDate = $carbon::now();
-        $renewalDate = $renewalDate->addDays(30);
+        $renewalDate = Carbon::now()->addMonth();
 
-        $request['start_date'] = $todaysDate;
-        $request['renewal_date'] = $renewalDate;
-
-        $subscription->update($request->all());
+        $subscription->update([
+            'renewal_date' => $renewalDate,
+            'updated_at' => Carbon::now()
+        ]);
 
         $this->createSubscriptionOrder($subscription);
         return response()->json($subscription, 200);
     }
 
-    public function createSubscriptionOrder($subscription)
+    public function createSubscriptionOrder($subscription): JsonResponse
     {
         $order = new Order();
 
@@ -120,15 +127,16 @@ class SubscriptionsController extends Controller
         return response()->json($order, 201);
     }
 
-    public function stop($subscriptionId)
+    public function stop(): JsonResponse
     {
-        $carbon = new Carbon();
-        $date = $carbon::now();
+        $date = Carbon::now();
+        $sub_id = $_GET['subscription_id'];
 
-        $subscription = new Subscription();
-        $subscription = $subscription::findOrFail($subscriptionId);
-        $subscription->update(['cancelation_date' => $date]);
+        DB::table('subscriptions')->where('id', $sub_id)->update([
+            'cancelation_date' => $date,
+            'updated_at' => $date
+        ]);
 
-        return response()->json($subscription, 200);
+        return response()->json(DB::table('subscriptions')->where('subscription_id', $_GET['subscription_id'])->get(), 200);
     }
 }
