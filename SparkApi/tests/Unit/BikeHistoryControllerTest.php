@@ -6,6 +6,8 @@ namespace Tests\Unit;
 
 use App\Http\Controllers\BikeHistoryController;
 use Laravel\Lumen\Testing\DatabaseMigrations;
+use Illuminate\Testing\Fluent\AssertableJson;
+
 use Database\Factories;
 use App\Models\Bikelog;
 use DateTime;
@@ -23,15 +25,24 @@ use Tests\TestCase;
 class BikeHistoryControllerTest extends TestCase
 {
 
+    /**
+     * Check that the showAll action returns json.
+     * @runInSeparateProcess
+     */
+    public function testShowAll()
+    {
+        $response = $this->call('GET', '/sparkapi/v1/bikehistory/bike');
+        $response->assertStatus(200);
+    }
+
         /**
-     * Check that the showOneBikesHistory action returns json.
+     * Check that the showOneBikesHistory action returns 200 response.
      * @runInSeparateProcess
      */
     public function testShowOneBikesHistory()
     {
         $response = $this->call('GET', '/sparkapi/v1/bikehistory/bike/1');
-        
-        $this->assertEquals(200, $response->status());
+        $response->assertStatus(200);
     }
 
     public function testShowAllBikeHistory()

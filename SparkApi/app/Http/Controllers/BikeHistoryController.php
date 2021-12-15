@@ -15,6 +15,9 @@ use App\Models\Chargingstation;
 use App\Models\Parkingspace;
 use App\Models\User;
 use App\Models\Subscription;
+use App\Models\ChargingstationBike;
+use App\Models\ParkingspaceBike;
+
 use App\Http\Controllers\BikeController;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -104,6 +107,17 @@ class BikeHistoryController extends Controller
 
         $bikelog = $bikelog::create($request->all());
 
+        //ta bort fron laddstation/parkering ifall cykeln står på en
+        $chargingstation = new ChargingstationBike();
+        $parkingspace = new ParkingspaceBike();
+
+        try {
+            $chargingstation::where('bike_id', $bike['id'])->firstOrFail()->delete();
+            $parkingspace::where('bike_id', $bike['id'])->firstOrFail()->delete();
+        } catch (\Exception $e) {
+
+        }
+
         //Ändra status till available på den cykel som nu startar.
         $bikeController = new BikeController();
         $bikeController->changeStatusOnBike($request->input('bike_id'), 'unavailable');
@@ -171,8 +185,16 @@ class BikeHistoryController extends Controller
             $order = $order::create($orderData);
         }
 
-        if ($this->checkIfInsideZone($bike)) {
+        if ($this->checkIfInsideParkingZone($bike)) {
             $data['inside_parking_area'] = 1;
+            $parkingspaceBike = new ParkingspaceBike();
+            $bike = $parkingspaceBike::create($this->checkIfInsideParkingZone($bike));
+        }
+
+        if ($this->checkIfInsideChargingzoneZone($bike)) {
+            $data['inside_parking_area'] = 1;
+            $chargingstationBike = new ChargingstationBike();
+            $bike = $chargingstationBike::create($this->checkIfInsideChargingzoneZone($bike));
         }
 
         $usersLastBikeRide->update($data);
@@ -185,11 +207,8 @@ class BikeHistoryController extends Controller
      *
      * @return bool
      */
-    public function checkIfInsideZone($bike)
+    public function checkIfInsideParkingZone($bike)
     {
-        $chargingstation = new Chargingstation();
-        $chargingstations = $chargingstation::all();
-
         $parkingspace = new Parkingspace();
         $parkingspaces = $parkingspace::all();
 
@@ -210,9 +229,21 @@ class BikeHistoryController extends Controller
 
             //110000 konverterar från koordinat till meter
             if (abs($diffBikeToCenter) < $value['radius'] * 110000) {
-                return true;
+                $data = [
+                    'parkingspace_id' => $value['id'],
+                    'bike_id' => $bike['id']
+                ];
+                return $data;
             }
         }
+        return false;
+    }
+
+    public function checkIfInsideChargingzoneZone($bike)
+    {
+        $chargingstation = new Chargingstation();
+        $chargingstations = $chargingstation::all();
+
         foreach ($chargingstations as $key => $value) {
             $longA     = $value['X'] * (M_PI / 180); // M_PI is a php constant
             $latA     = $value['Y'] * (M_PI / 180);
@@ -228,7 +259,11 @@ class BikeHistoryController extends Controller
             $diffBikeToCenter = 6371 * acos($cosLatA * $cosLatB * cos(floatval($subBA)) + $sinLatA * $sinLatB) * 1000;
 
             if (abs($diffBikeToCenter) < $value['radius'] * 110000) {
-                return true;
+                $data = [
+                    'chargingstation_id' => $value['id'],
+                    'bike_id' => $bike['id']
+                ];
+                return $data;
             }
         }
         return false;
@@ -247,7 +282,7 @@ class BikeHistoryController extends Controller
         $taxForTime = $timeDiff * 5;
 
         //Grundtaxa beror på parkering
-        if ($this->checkIfInsideZone($bike)) {
+        if ($this->checkIfInsideParkingZone($bike) || $this->checkIfInsideChargingzoneZone($bike)) {
             $totalTax = $taxForTime + 10;
             return $totalTax;
         }
