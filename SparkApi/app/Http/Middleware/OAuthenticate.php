@@ -15,9 +15,8 @@ class OAuthenticate
      *
      * @param Request $request
      * @param \Closure $next
-     * @return mixed
      */
-    public function handle(Request $request, Closure $next): mixed
+    public function handle(Request $request, Closure $next)
     {
         // Do not check user authentication for requests to authenticate
         if ($request->routeIs('login.*')) {

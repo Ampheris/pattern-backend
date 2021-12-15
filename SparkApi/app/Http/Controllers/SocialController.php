@@ -31,9 +31,9 @@ class SocialController extends Controller
         $user = $this->httpGET($access_token);
 
         // Checks after the user and updates their information.
-        $this->checkUser(json_decode($user), $access_token);
+        $role = $this->checkUser(json_decode($user), $access_token);
 
-        return redirect('http://localhost:8000/')->withCookie(Cookie::create('access_token', $access_token, httpOnly: False));
+        return redirect('http://localhost:8000/')->withCookies([Cookie::create('access_token', $access_token), Cookie::create('role', $role)]);
     }
 
     /*
@@ -76,6 +76,9 @@ class SocialController extends Controller
                 'created_at' => Carbon::now()
             ]);
         }
+
+        $role = DB::table('users')->where('github_id', $user->id)->value('role');
+        return $role;
     }
 
     public function getAccessToken($url, $code)
