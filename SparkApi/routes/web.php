@@ -16,7 +16,14 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->group(['middleware' => 'oauth', 'prefix' => 'sparkapi/v1'], function () use ($router) {
+$router->post('sparkapi/v1/apiuser', ['uses' => 'ApiUserController@create']);
+// $router->get('sparkapi/v1/bikes', ['uses' => 'BikeController@showAllBikes', 'middleware' => 'auth']);
+
+// $router->get('sparkapi/v1/login/github/callback', ['as' => 'login.github.callback', 'uses' => 'SocialController@Callback']);
+// $router->get('sparkapi/v1/login/github', ['as' => 'login.github', 'uses' => 'SocialController@redirect']);
+
+
+$router->group(['middleware' => ['oauth', 'auth'], 'prefix' => 'sparkapi/v1'], function () use ($router) {
     /*
     |----------------------------------------------------------------------
     | Login via socials
@@ -24,7 +31,7 @@ $router->group(['middleware' => 'oauth', 'prefix' => 'sparkapi/v1'], function ()
     */
     $router->get('login/github', ['as' => 'login.github', 'uses' => 'SocialController@redirect']);
     $router->get('login/github/callback', ['as' => 'login.github.callback', 'uses' => 'SocialController@Callback']);
-    $router->get('login/admin', ['as' => 'login.admin', 'uses' => 'SocialController@Admin']);
+    // $router->get('login/admin', ['as' => 'login.admin', 'uses' => 'SocialController@Admin']);
     /*
     |----------------------------------------------------------------------
     | City
