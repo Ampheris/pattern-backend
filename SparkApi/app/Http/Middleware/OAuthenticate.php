@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Support\Facades\DB;
 
 class OAuthenticate
@@ -23,18 +22,16 @@ class OAuthenticate
             return $next($request);
         }
 
-        // User has an access token cookie
-        if ($request->hasCookie('access_token')) {
-            $access_token = $request->cookie('access_token');
-        }else if ($request->hasHeader('Authorization')) {
+        // User has an bearer token
+        if ($request->bearerToken()) {
+            $access_token = $request->bearerToken();
+        }
+
+        // If uesr has header authorization.
+        if ($request->hasHeader('Authorization')) {
             $access_token = $request->header('Authorization');
             $token_arr = explode(' ', $access_token);
             $access_token = $token_arr[1];
-        }
-        else {
-            // User does not have an access token cookie, but maybe an api key?
-            // todo: add api key check
-            return response('Unauthorized', 401);
         }
 
         try {
