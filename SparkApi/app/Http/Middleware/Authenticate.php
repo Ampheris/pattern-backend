@@ -35,6 +35,11 @@ class Authenticate
      */
     public function handle($request, Closure $next, $guard = null)
     {
+        // Do not check user authentication for requests to authenticate
+        if ($request->routeIs('login.*')) {
+            return $next($request);
+        }
+        
         if ($this->auth->guard($guard)->guest()) {
             return response('Unauthorized.', 401);
         }

@@ -41,6 +41,16 @@ class OAuthenticate
             if ($user->token_expires < Carbon::now()) {
                 return response('Unauthorized', 401);
             }
+            // var_dump($user->role);
+            // var_dump($request->cookie('role'));
+            // var_dump($user->role == $request->cookie('role'));
+
+            // Is the cookie "role" correct?
+            if ($request->hasHeader('role') && $user->role !== $request->header('role')) {
+                // var_dump($user->role);
+                // var_dump($request->cookie('role'));
+                return response('Unauthorized', 401);
+            }
 
             // Load the user
             $request->setUserResolver(function () use ($user) {

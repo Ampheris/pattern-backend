@@ -12,8 +12,8 @@ class UserController extends Controller
 {
     public function showAllUsers()
     {
-        $bike = new User();
-        return response()->json($bike::all());
+        $user = new User();
+        return response()->json($user::all());
     }
 
     public function showOneUser(Request $request): JsonResponse
