@@ -16,15 +16,30 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->group(['prefix' => 'sparkapi/v1'], function () use ($router) {
+$router->post('sparkapi/v1/apiuser', ['uses' => 'ApiUserController@create']);
+// $router->get('sparkapi/v1/bikes', ['uses' => 'BikeController@showAllBikes', 'middleware' => 'auth']);
+
+// $router->get('sparkapi/v1/login/github/callback', ['as' => 'login.github.callback', 'uses' => 'SocialController@Callback']);
+// $router->get('sparkapi/v1/login/github', ['as' => 'login.github', 'uses' => 'SocialController@redirect']);
+
+
+$router->group(['middleware' => 'oauth', 'prefix' => 'sparkapi/v1'], function () use ($router) {
+    /*
+    |----------------------------------------------------------------------
+    | Login via socials
+    |----------------------------------------------------------------------
+    */
+    $router->get('login/github', ['as' => 'login.github', 'uses' => 'SocialController@redirect']);
+    $router->get('login/github/callback', ['as' => 'login.github.callback', 'uses' => 'SocialController@Callback']);
+    // $router->get('login/admin', ['as' => 'login.admin', 'uses' => 'SocialController@Admin']);
     /*
     |----------------------------------------------------------------------
     | City
     |----------------------------------------------------------------------
     */
     $router->get('users', ['uses' => 'UserController@showAllUsers']);
-    $router->get('users/{userId}', ['uses' => 'UserController@showOneUser']);
-    $router->put('users/{userId}', ['uses' => 'UserController@update']);
+    $router->get('users/get', ['uses' => 'UserController@showOneUser']);
+    $router->patch('users/balance', ['uses' => 'UserController@update']);
     $router->post('users', ['uses' => 'UserController@create']);
     /*
     |----------------------------------------------------------------------
@@ -88,12 +103,12 @@ $router->group(['prefix' => 'sparkapi/v1'], function () use ($router) {
     */
     $router->get('bikehistory', ['uses' => 'BikeHistoryController@showAll']);
     $router->get('bikehistory/bike/{bikeId}', ['uses' => 'BikeHistoryController@showOneBikesHistory']);
-    $router->get('bikehistory/user/{customerId}', ['uses' => 'BikeHistoryController@showOneUsersBikeHistory']);
-    $router->get('bikehistory/user/active/{customerId}', ['uses' => 'BikeHistoryController@showUsersActiveBikeHistory']);
+    $router->get('bikehistory/user', ['uses' => 'BikeHistoryController@showOneUsersBikeHistory']);
+    $router->get('bikehistory/user/active', ['uses' => 'BikeHistoryController@showUsersActiveBikeHistory']);
+    $router->get('bikehistory/stop', ['uses' => 'BikeHistoryController@stop']);
+    $router->get('bikehistory/start', ['uses' => 'BikeHistoryController@start']);
     $router->get('bikehistory/{historyId}', ['uses' => 'BikeHistoryController@showSpecifikBikeHistory']);
-    $router->post('bikehistory/start', ['uses' => 'BikeHistoryController@start']);
     //Använder userId, för tänker att en användare bara kommer kunna ha igång en cykel åt gången.
-    $router->put('bikehistory/stop/{customerId}', ['uses' => 'BikeHistoryController@stop']);
     /*
     |----------------------------------------------------------------------
     | Orders
@@ -101,8 +116,8 @@ $router->group(['prefix' => 'sparkapi/v1'], function () use ($router) {
     */
     $router->get('orders', ['uses' => 'OrdersController@ShowAllOrders']);
     $router->post('orders', ['uses' => 'OrdersController@create']);
+    $router->get('orders/user', ['uses' => 'OrdersController@ShowCustomersOrders']);
     $router->get('orders/{orderId}', ['uses' => 'OrdersController@ShowSingleOrder']);
-    $router->get('orders/user/{customerId}', ['uses' => 'OrdersController@ShowCustomersOrders']);
     $router->get('orders/history/{bikehistoryId}', ['uses' => 'OrdersController@ShowOrderForBikeride']);
 
     /*
@@ -117,9 +132,9 @@ $router->group(['prefix' => 'sparkapi/v1'], function () use ($router) {
     |----------------------------------------------------------------------
     */
     $router->get('subscriptions', ['uses' => 'SubscriptionsController@ShowAllSubscriptions']);
-    $router->post('subscriptions', ['uses' => 'SubscriptionsController@start']);
-    $router->put('subscriptions/stop/{subscriptionId}', ['uses' => 'SubscriptionsController@stop']);
-    $router->put('subscriptions/renew/{subscriptionId}', ['uses' => 'SubscriptionsController@renew']);
-    $router->get('subscriptions/{customerId}', ['uses' => 'SubscriptionsController@ShowCustomersCurrentSubscription']);
+    $router->get('subscriptions/start', ['uses' => 'SubscriptionsController@start']);
+    $router->get('subscriptions/stop', ['uses' => 'SubscriptionsController@stop']);
+    $router->patch('subscriptions/renew', ['uses' => 'SubscriptionsController@renew']);
+    $router->get('subscriptions/user', ['uses' => 'SubscriptionsController@ShowCustomersCurrentSubscription']);
     // $router->get('subscriptions/all/{customerId}', ['uses' => 'SubscriptionsController@ShowAllCustomersSubscriptions']);
 });

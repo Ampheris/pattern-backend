@@ -40,12 +40,14 @@ class BikeHistoryController extends Controller
         return response()->json($bikelog::where('bike_id', $bikeId)->get());
     }
 
-    public function showOneUsersBikeHistory($customerId)
+    public function showOneUsersBikeHistory(Request $request)
     {
+        $user = $request->user();
+
         $bikelog = DB::table('bikelogs')
                     ->leftJoin('orders', 'bikelogs.id', '=', 'orders.bikehistory_id')
                     ->select('bikelogs.*', 'orders.*')
-                    ->where('bikelogs.customer_id', $customerId)
+                    ->where('bikelogs.customer_id', $user->id)
                     ->orderBy('created_at', 'desc')
                     ->get();
         return response()->json($bikelog);
@@ -62,10 +64,11 @@ class BikeHistoryController extends Controller
         return response()->json($bikelog);
     }
 
-    public function showUsersActiveBikeHistory($customerId)
+    public function showUsersActiveBikeHistory(Request $request)
     {
+        $user = $request->user();
         $bikelog = new Bikelog();
-        $activeBikeRide = $bikelog::where('customer_id', $customerId)->latest()->first();
+        $activeBikeRide = $bikelog::where('customer_id', $user->id)->latest()->first();
         if (is_null($activeBikeRide->stop_time)) {
             return response()->json($activeBikeRide);
         }
@@ -81,10 +84,12 @@ class BikeHistoryController extends Controller
      */
     public function start(Request $request)
     {
+        $user = $request->user();
+        $bike_id = $_GET['bike_id'];
         $bikelog = new Bikelog();
-        $bikesLastRide = $bikelog::where('bike_id', $request->input('bike_id'))->latest()->first();
+        $bikesLastRide = $bikelog::where('bike_id', $bike_id)->latest()->first();
 
-        $usersLastBikeRide = $bikelog::where('customer_id', $request->input('customer_id'))->latest()->first();
+        $usersLastBikeRide = $bikelog::where('customer_id', $user->id)->latest()->first();
 
         //Kontrollera att cykelns senaste påbörjade åkturen är avslutat, innan en ny påbörjas
         if ($bikesLastRide && is_null($bikesLastRide['stop_time'])) {
@@ -99,13 +104,16 @@ class BikeHistoryController extends Controller
         $date = $carbon::now();
 
         $bike = new Bike();
-        $bike = $bike::find($request->input('bike_id'));
+        $bike = $bike::find($bike_id);
 
-        $request['start_time'] = $date;
-        $request['start_x'] = $bike['X'];
-        $request['start_y'] = $bike['Y'];
-
-        $bikelog = $bikelog::create($request->all());
+        DB::table('bikelogs')->insert([
+            'customer_id' => $user->id,
+            'bike_id' => $bike_id,
+            'start_time' => $date,
+            'start_x' => $bike['X'],
+            'start_y' => $bike['Y'],
+            'created_at' => Carbon::now()
+        ]);
 
         //ta bort fron laddstation/parkering ifall cykeln står på en
         $chargingstation = new ChargingstationBike();
@@ -120,7 +128,7 @@ class BikeHistoryController extends Controller
 
         //Ändra status till available på den cykel som nu startar.
         $bikeController = new BikeController();
-        $bikeController->changeStatusOnBike($request->input('bike_id'), 'unavailable');
+        $bikeController->changeStatusOnBike($bike_id, 'unavailable');
         return response()->json($bikelog, 201);
     }
 
@@ -129,13 +137,14 @@ class BikeHistoryController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function stop($customerId)
+    public function stop(Request $request)
     {
         $carbon = new Carbon();
         $date = $carbon::now();
+        $user = $request->user();
 
         $usersLastBikeRide = new Bikelog();
-        $usersLastBikeRide = Bikelog::where('customer_id', $customerId)->latest()->first();
+        $usersLastBikeRide = $usersLastBikeRide::where('customer_id', $user->id)->latest()->first();
 
         //Kontrollera att användaren har en aktiv åktur
         if ($usersLastBikeRide && !is_null($usersLastBikeRide['stop_time'])) {
@@ -157,32 +166,27 @@ class BikeHistoryController extends Controller
 
         //Kolla så användaren inte har en aktiv subscription, och i så fall skapa en order
         $subscription = new Subscription();
-        $subscription = $subscription::where('customer_id', $customerId)->latest()->first();
+        $subscription = $subscription::where('customer_id', $user->id)->latest()->first();
         // var_dump($subscription['id']);
         if (is_null($subscription) || (!is_null($subscription['cancelation_date']) && $subscription['cancelation_date'] > $subscription['renewal_date'])) {
-            $user = new User();
-            $user = $user::findOrFail($customerId);
-
             $bikeRidePrice = $this->calculatePrice($usersLastBikeRide, $bike);
-            $userBalance = $user['balance'];
+            $userBalance = $user->balance;
 
             //Kontrollera att användaren har tillräckligt med pengar för att betala åkturen
             if ($bikeRidePrice > $userBalance) {
                 return response()->json(['message' => 'User does not have enough money to pay for bikeride.'], 500);
             }
 
-            $user->update(['balance' => $userBalance - $bikeRidePrice]);
+            DB::table('users')->where('id', $user->id)->update([
+                'balance' => $userBalance - $bikeRidePrice
+            ]);
 
             //Skapa en order för åkturen
-            $orderData = [
-                'customer_id' => $customerId,
-                'order_date' => $date,
+            DB::table('orders')->insert([
+                'customer_id' => $user->id,
                 'total_price' => $bikeRidePrice,
                 'bikehistory_id' => $usersLastBikeRide['id']
-            ];
-
-            $order = new Order();
-            $order = $order::create($orderData);
+            ]);
         }
 
         if ($this->checkIfInsideParkingZone($bike)) {

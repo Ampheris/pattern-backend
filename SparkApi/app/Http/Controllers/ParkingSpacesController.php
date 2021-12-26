@@ -35,10 +35,10 @@ class ParkingSpacesController extends Controller
          * Requires:
          *  "X_POS"
          *  "Y_POS"
-         *  "available"
          *  "radie"
          *  "name"
         */
+
         $parkingspace = new Parkingspace();
         $parkingspace = $parkingspace::create($request->all());
 

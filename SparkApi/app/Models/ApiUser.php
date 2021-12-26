@@ -1,26 +1,23 @@
 <?php
 
 namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Auth\Authenticatable as AuthenticableTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+// use Illuminate\Database\Eloquent\Factories\HasFactory;
 // use Illuminate\Foundation\Auth\User as Authenticatable;
 // use Illuminate\Notifications\Notifiable;
 // use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\Model;
 
-/**
-* @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User findOrFail($value)
-* @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User find($value)
-* @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User create($value)
-*/
-
-class User extends Model
+class ApiUser extends Model
 {
     // use HasApiTokens;
     use HasFactory;
-
     // use Notifiable;
+    // use AuthenticableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -30,12 +27,8 @@ class User extends Model
     protected $fillable = [
         'email',
         'password',
-        'balance',
-        'card_info',
-        'csv',
-        'expiration_date',
-        'provider',
-        'provider_id'
+        'api_token',
+        'requests'
     ];
 
     /**

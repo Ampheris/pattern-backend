@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Laravel\Lumen\Providers\EventServiceProvider as ServiceProvider;
+use SocialiteProviders\GitHub\GitHubExtendSocialite;
+use SocialiteProviders\Manager\SocialiteWasCalled;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -12,8 +14,9 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        \App\Events\ExampleEvent::class => [
-            \App\Listeners\ExampleListener::class,
+        SocialiteWasCalled::class => [
+            // ... other providers
+            GitHubExtendSocialite::class.'@handle',
         ],
     ];
 }

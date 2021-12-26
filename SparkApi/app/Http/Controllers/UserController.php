@@ -2,24 +2,23 @@
 
 namespace App\Http\Controllers;
 
-// use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+
 
 class UserController extends Controller
 {
     public function showAllUsers()
     {
-        $bike = new User();
-        return response()->json($bike::all());
+        $user = new User();
+        return response()->json($user::all());
     }
 
-    public function showOneUser($userId)
+    public function showOneUser(Request $request): JsonResponse
     {
-        $user = new User();
-        return response()->json($user::find($userId));
+        return response()->json($request->user());
     }
 
     public function create(Request $request)
@@ -30,11 +29,10 @@ class UserController extends Controller
         return response()->json($user, 201);
     }
 
-    public function update($userId, Request $request)
+    public function update(Request $request)
     {
-        $user = new User();
-        $user = $user::findOrFail($userId);
-        $user->update($request->all());
+        $user = $request->user();
+        DB::table('users')->where('access_token', $user->access_token)->increment('balance', $_GET['balance']);
 
         return response()->json($user, 200);
     }
