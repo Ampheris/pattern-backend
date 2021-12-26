@@ -23,7 +23,7 @@ $router->post('sparkapi/v1/apiuser', ['uses' => 'ApiUserController@create']);
 // $router->get('sparkapi/v1/login/github', ['as' => 'login.github', 'uses' => 'SocialController@redirect']);
 
 
-$router->group(['middleware' => ['oauth', 'auth'], 'prefix' => 'sparkapi/v1'], function () use ($router) {
+$router->group(['middleware' => 'oauth', 'prefix' => 'sparkapi/v1'], function () use ($router) {
     /*
     |----------------------------------------------------------------------
     | Login via socials

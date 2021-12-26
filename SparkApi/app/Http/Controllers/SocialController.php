@@ -33,7 +33,12 @@ class SocialController extends Controller
         // Checks after the user and updates their information.
         $role = $this->checkUser(json_decode($user), $access_token);
 
+        if ($role == 'admin') {
+            return redirect('http://localhost:8000/admin')->withCookies([Cookie::create('access_token', $access_token), Cookie::create('role', $role)]);
+        }
+
         return redirect('http://localhost:8000/')->withCookies([Cookie::create('access_token', $access_token), Cookie::create('role', $role)]);
+
     }
 
     /*

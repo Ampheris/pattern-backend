@@ -25,31 +25,21 @@ class OAuthenticate
         // User has an bearer token
         if ($request->bearerToken()) {
             $access_token = $request->bearerToken();
-        }
-
-        // If uesr has header authorization.
-        if ($request->hasHeader('Authorization')) {
+        } else if ($request->hasHeader('Authorization')) {
             $access_token = $request->header('Authorization');
             $token_arr = explode(' ', $access_token);
             $access_token = $token_arr[1];
+        } else {
+            return response('Unauthorized, has no token', 401);
         }
+
 
         try {
             // Does a user exists with this access token?
             $user = DB::table('users')->where('access_token', $access_token)->first();
             // Is the access token valid?
             if ($user->token_expires < Carbon::now()) {
-                return response('Unauthorized', 401);
-            }
-            // var_dump($user->role);
-            // var_dump($request->cookie('role'));
-            // var_dump($user->role == $request->cookie('role'));
-
-            // Is the cookie "role" correct?
-            if ($request->hasHeader('role') && $user->role !== $request->header('role')) {
-                // var_dump($user->role);
-                // var_dump($request->cookie('role'));
-                return response('Unauthorized', 401);
+                return response('Unauthorized, failed to find user', 401);
             }
 
             // Load the user
@@ -58,7 +48,7 @@ class OAuthenticate
             });
 
         } catch (\Throwable $e) {
-            return response('Unauthorized', 401);
+            return response('Unauthorized, everything is wrong', 401);
         }
 
         return $next($request);
