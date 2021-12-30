@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Support\Facades\DB;
 
 class OAuthenticate
@@ -22,24 +23,31 @@ class OAuthenticate
             return $next($request);
         }
 
-        // User has an bearer token
-        if ($request->bearerToken()) {
-            $access_token = $request->bearerToken();
-        } else if ($request->hasHeader('Authorization')) {
+        // User has an access token cookie
+        if ($request->hasCookie('access_token')) {
+            $access_token = $request->cookie('access_token');
+        }else if ($request->hasHeader('Authorization')) {
             $access_token = $request->header('Authorization');
             $token_arr = explode(' ', $access_token);
             $access_token = $token_arr[1];
-        } else {
-            return response('Unauthorized, has no token', 401);
         }
-
+        else {
+            // User does not have an access token cookie, but maybe an api key?
+            // todo: add api key check
+            return response('Unauthorized', 401);
+        }
 
         try {
             // Does a user exists with this access token?
             $user = DB::table('users')->where('access_token', $access_token)->first();
             // Is the access token valid?
             if ($user->token_expires < Carbon::now()) {
-                return response('Unauthorized, failed to find user', 401);
+                return response('Unauthorized', 401);
+            }
+
+            // Is the cookie "role" correct?
+            if ($request->hasHeader('role') && $user->role !== $request->header('role')) {
+                return response('Unauthorized', 401);
             }
 
             // Load the user
@@ -48,7 +56,7 @@ class OAuthenticate
             });
 
         } catch (\Throwable $e) {
-            return response('Unauthorized, everything is wrong', 401);
+            return response('Unauthorized', 401);
         }
 
         return $next($request);
