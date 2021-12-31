@@ -17,11 +17,6 @@ $router->get('/', function () use ($router) {
 });
 
 $router->post('sparkapi/v1/apiuser', ['uses' => 'ApiUserController@create']);
-// $router->get('sparkapi/v1/bikes', ['uses' => 'BikeController@showAllBikes', 'middleware' => 'auth']);
-
-// $router->get('sparkapi/v1/login/github/callback', ['as' => 'login.github.callback', 'uses' => 'SocialController@Callback']);
-// $router->get('sparkapi/v1/login/github', ['as' => 'login.github', 'uses' => 'SocialController@redirect']);
-
 
 $router->group(['middleware' => 'oauth', 'prefix' => 'sparkapi/v1'], function () use ($router) {
     /*
@@ -133,7 +128,7 @@ $router->group(['middleware' => 'oauth', 'prefix' => 'sparkapi/v1'], function ()
     */
     $router->get('subscriptions', ['uses' => 'SubscriptionsController@ShowAllSubscriptions']);
     $router->get('subscriptions/start', ['uses' => 'SubscriptionsController@start']);
-    $router->get('subscriptions/stop', ['uses' => 'SubscriptionsController@stop']);
+    $router->get('subscriptions/stop/{subscriptionId}', ['uses' => 'SubscriptionsController@stop']);
     $router->patch('subscriptions/renew', ['uses' => 'SubscriptionsController@renew']);
     $router->get('subscriptions/user', ['uses' => 'SubscriptionsController@ShowCustomersCurrentSubscription']);
     // $router->get('subscriptions/all/{customerId}', ['uses' => 'SubscriptionsController@ShowAllCustomersSubscriptions']);
