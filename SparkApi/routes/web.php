@@ -18,7 +18,7 @@ $router->get('/', function () use ($router) {
 
 $router->post('sparkapi/v1/apiuser', ['uses' => 'ApiUserController@create']);
 
-$router->group(['middleware' => 'oauth', 'prefix' => 'sparkapi/v1'], function () use ($router) {
+$router->group(['middleware' => ['oauth', 'auth'], 'prefix' => 'sparkapi/v1'], function () use ($router) {
     /*
     |----------------------------------------------------------------------
     | Login via socials

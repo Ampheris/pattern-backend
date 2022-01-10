@@ -69,7 +69,7 @@ class ChargingStationsControllerTest extends TestCase
         $bike = new Chargingstation();
         $id = $bike::where('name', 'y978q2t34hu9weg')->get('id')->first();
 
-        $response = $this->call('PUT', '/sparkapi/v1/chargingstations/'.$id->id, [
+        $response = $this->call('PUT', '/sparkapi/v1/chargingstations/' . $id->id, [
             'name' => 'kljaweioawg',
             'X' => 0.25,
             'Y' => 0.25,

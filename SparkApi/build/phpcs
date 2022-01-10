@@ -1,0 +1,10 @@
+
+FILE: C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php
+------------------------------------------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+------------------------------------------------------------------------------------------------------
+ 21 | ERROR | Method name "SocialController::Callback" is not in camel caps format
+------------------------------------------------------------------------------------------------------
+
+Time: 3.92 secs; Memory: 8MB
+

@@ -17,7 +17,6 @@ use App\Models\User;
 use App\Models\Subscription;
 use App\Models\ChargingstationBike;
 use App\Models\ParkingspaceBike;
-
 use App\Http\Controllers\BikeController;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -123,7 +122,6 @@ class BikeHistoryController extends Controller
             $chargingstation::where('bike_id', $bike['id'])->firstOrFail()->delete();
             $parkingspace::where('bike_id', $bike['id'])->firstOrFail()->delete();
         } catch (\Exception $e) {
-
         }
 
         //Ändra status till available på den cykel som nu startar.

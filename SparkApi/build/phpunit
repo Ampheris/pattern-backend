@@ -1,18 +1,177 @@
 PHPUnit 9.5.10 by Sebastian Bergmann and contributors.
 
-[41;37mF[0m                                                                   1 / 1 (100%)
+[41;37mF[0m[41;37mF[0m[41;37mF[0m[41;37mF[0m[41;37mF[0m[41;37mF[0m[41;37mF[0m[41;37mF[0m[41;37mF[0m[41;37mF[0m[41;37mF[0m[41;37mF[0m[41;37mF[0m.[41;37mF[0m[41;37mF[0m[41;37mF[0m[41;37mF[0m[41;37mF[0m[41;37mF[0m[41;37mF[0m[41;37mF[0m[41;37mF[0m[41;37mF[0m[41;37mF[0m[41;37mF[0m[41;37mF[0m[41;37mF[0m[31;1mE[0m[31;1mE[0m[31;1mE[0m[31;1mE[0m                                  32 / 32 (100%)
 
-Time: 00:01.706, Memory: 8.00 MB
+Time: 00:02.225, Memory: 20.00 MB
 
-There was 1 failure:
+There were 4 errors:
 
-1) Tests\Unit\BikeHistoryControllerTest::testShowOneBikesHistory
-Failed asserting that an array has the key 'data'.
+1) Tests\Unit\SubscriptionsControllerTest::testShowOneSubscription
+ParseError: syntax error, unexpected ']'
 
-C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\vendor\illuminate\testing\AssertableJsonString.php:252
-C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\vendor\illuminate\testing\TestResponse.php:798
-C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\vendor\laravel\lumen-framework\src\Testing\Concerns\MakesHttpRequests.php:279
-C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\BikeHistoryControllerTest.php:50
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SubscriptionsController.php:85
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\SubscriptionsControllerTest.php:30
 
-[37;41mFAILURES![0m
-[37;41mTests: 1[0m[37;41m, Assertions: 4[0m[37;41m, Failures: 1[0m[37;41m.[0m
+2) Tests\Unit\SubscriptionsControllerTest::testShowAllSubscriptions
+ParseError: syntax error, unexpected ']'
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SubscriptionsController.php:85
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\SubscriptionsControllerTest.php:30
+
+3) Tests\Unit\SubscriptionsControllerTest::testPostSubscriptions
+ParseError: syntax error, unexpected ']'
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SubscriptionsController.php:85
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\SubscriptionsControllerTest.php:30
+
+4) Tests\Unit\SubscriptionsControllerTest::testPutSubscriptions
+ParseError: syntax error, unexpected ']'
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SubscriptionsController.php:85
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\SubscriptionsControllerTest.php:30
+
+--
+
+There were 27 failures:
+
+1) Tests\Unit\BikeControllerTest::testShowOneBike
+Failed asserting that 401 matches expected 200.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\BikeControllerTest.php:42
+
+2) Tests\Unit\BikeControllerTest::testShowAllBikes
+Failed asserting that 401 matches expected 200.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\BikeControllerTest.php:48
+
+3) Tests\Unit\BikeControllerTest::testPostBike
+Failed asserting that 401 matches expected 201.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\BikeControllerTest.php:61
+
+4) Tests\Unit\BikeControllerTest::testPutBike
+Failed asserting that 401 matches expected 201.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\BikeControllerTest.php:103
+
+5) Tests\Unit\BikeControllerTest::testDeleteBike
+Failed asserting that 401 matches expected 201.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\BikeControllerTest.php:128
+
+6) Tests\Unit\BikeHistoryControllerTest::testShowAll
+Expected response status code [200] but received 401.
+Failed asserting that 200 is identical to 401.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\vendor\illuminate\testing\TestResponse.php:177
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\BikeHistoryControllerTest.php:34
+
+7) Tests\Unit\BikeHistoryControllerTest::testShowOneBikesHistory
+Expected response status code [200] but received 401.
+Failed asserting that 200 is identical to 401.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\vendor\illuminate\testing\TestResponse.php:177
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\BikeHistoryControllerTest.php:44
+
+8) Tests\Unit\BikeHistoryControllerTest::testShowAllBikeHistory
+Failed asserting that 401 matches expected 200.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\BikeHistoryControllerTest.php:51
+
+9) Tests\Unit\BikeHistoryControllerTest::testShowOneBikesHistoryUser
+Failed asserting that 404 matches expected 200.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\BikeHistoryControllerTest.php:58
+
+10) Tests\Unit\BikeHistoryControllerTest::testShowUsersActiveBikeHistory
+Failed asserting that 401 matches expected 200.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\BikeHistoryControllerTest.php:65
+
+11) Tests\Unit\BikeHistoryControllerTest::testBikeHistoryHistoryId
+Failed asserting that 401 matches expected 200.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\BikeHistoryControllerTest.php:71
+
+12) Tests\Unit\BikeHistoryControllerTest::testPostBikeHistory
+Failed asserting that 405 matches expected 201.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\BikeHistoryControllerTest.php:80
+
+13) Tests\Unit\BikeHistoryControllerTest::testPutBikeHistory
+Failed asserting that 405 matches expected 201.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\BikeHistoryControllerTest.php:95
+
+14) Tests\Unit\ChargingStationsControllerTest::testShowAllChargingstations
+Failed asserting that 401 matches expected 200.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\CharginstationControllerTest.php:44
+
+15) Tests\Unit\ChargingStationsControllerTest::testPostChargingStations
+Failed asserting that 401 matches expected 201.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\CharginstationControllerTest.php:55
+
+16) Tests\Unit\ChargingStationsControllerTest::testPutChargingStations
+Failed asserting that 401 matches expected 201.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\CharginstationControllerTest.php:68
+
+17) Tests\Unit\CityControllerTest::testShowOneCity
+Failed asserting that 401 matches expected 201.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\CityControllerTest.php:44
+
+18) Tests\Unit\CityControllerTest::testShowAllCities
+Failed asserting that 401 matches expected 200.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\CityControllerTest.php:57
+
+19) Tests\Unit\CityControllerTest::testPostCity
+Failed asserting that 401 matches expected 201.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\CityControllerTest.php:68
+
+20) Tests\Unit\CityControllerTest::testPutCity
+Failed asserting that 401 matches expected 201.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\CityControllerTest.php:79
+
+21) Tests\Unit\OrdersControllerTest::testShowOneOrder
+Failed asserting that 401 matches expected 201.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\OrdersControllerTest.php:42
+
+22) Tests\Unit\OrdersControllerTest::testShowAllOrders
+Failed asserting that 401 matches expected 200.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\OrdersControllerTest.php:55
+
+23) Tests\Unit\OrdersControllerTest::testPostPrders
+Failed asserting that 401 matches expected 201.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\OrdersControllerTest.php:66
+
+24) Tests\Unit\ParkingSpacesControllerTest::testShowOneParkingSpace
+Failed asserting that 401 matches expected 201.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\ParkingspaceControllerTest.php:42
+
+25) Tests\Unit\ParkingSpacesControllerTest::testShowAllParkingSpaces
+Failed asserting that 401 matches expected 200.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\ParkingspaceControllerTest.php:55
+
+26) Tests\Unit\ParkingSpacesControllerTest::testPostParkingSpaces
+Failed asserting that 401 matches expected 201.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\ParkingspaceControllerTest.php:66
+
+27) Tests\Unit\ParkingSpacesControllerTest::testPutParkingSpaces
+Failed asserting that 401 matches expected 201.
+
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\ParkingspaceControllerTest.php:79
+
+[37;41mERRORS![0m
+[37;41mTests: 32[0m[37;41m, Assertions: 47[0m[37;41m, Errors: 4[0m[37;41m, Failures: 27[0m[37;41m.[0m

@@ -16,7 +16,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         SocialiteWasCalled::class => [
             // ... other providers
-            GitHubExtendSocialite::class.'@handle',
+            GitHubExtendSocialite::class . '@handle',
         ],
     ];
 }

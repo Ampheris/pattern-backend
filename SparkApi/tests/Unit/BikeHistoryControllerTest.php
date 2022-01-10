@@ -7,7 +7,6 @@ namespace Tests\Unit;
 use App\Http\Controllers\BikeHistoryController;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Illuminate\Testing\Fluent\AssertableJson;
-
 use Database\Factories;
 use App\Models\Bikelog;
 use DateTime;
@@ -73,7 +72,7 @@ class BikeHistoryControllerTest extends TestCase
     }
 
     public function testPostBikeHistory()
-    {  
+    {
         $response = $this->call('POST', '/sparkapi/v1/bikehistory/start', [
             'customer_id' => 0,
             'bike_id' => 0

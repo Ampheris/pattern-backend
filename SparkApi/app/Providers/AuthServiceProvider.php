@@ -34,12 +34,11 @@ class AuthServiceProvider extends ServiceProvider
         //     if ($request->input('api_token')) {
         //         return User::where('api_token', $request->input('api_token'))->first();
         //     }
-            $this->app['auth']->viaRequest('api', function ($request)
-            {
+            $this->app['auth']->viaRequest('api', function ($request) {
                 // $ApiKey = $request->header('Api_Token');
                 if ($request->header('Api_Token')) {
-                    $user = ApiUser::where('api_token', $request->header('Api_Token'));
-                    if (!(array)$user == false) {
+                    $user = ApiUser::where('api_token', $request->header('Api_Token'))->first();
+                    if (!is_null($user)) {
                         $number_of_requests = $user->value('requests') + 1;
                         $user->update(['requests' => $number_of_requests]);
                         return $user;

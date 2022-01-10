@@ -46,12 +46,12 @@ class CityControllerTest extends TestCase
         $city = new Cityzone();
         $id = $city::where('city', '90w3u90rehio')->get('id')->first();
 
-        $response = $this->call('GET', '/sparkapi/v1/cities/'. $id->id);
+        $response = $this->call('GET', '/sparkapi/v1/cities/' . $id->id);
 
         $this->assertEquals(200, $response->status());
     }
 
-    public function testShowAllCities() 
+    public function testShowAllCities()
     {
         $response = $this->call('GET', '/sparkapi/v1/cities');
         $this->assertEquals(200, $response->status());
@@ -66,7 +66,6 @@ class CityControllerTest extends TestCase
             'radius' => 0.05
         ]);
         $this->assertEquals(201, $response->status());
-        
     }
 
     public function testPutCity()
@@ -81,7 +80,7 @@ class CityControllerTest extends TestCase
 
         $city = new Cityzone();
         $id = $city::where('city', '90w3u90rehio')->get('id')->first();
-    
+
         $response = $this->call('PUT', '/sparkapi/v1/cities/' . $id->id, [
             'city' => 'Stad',
             'X' => 0.25,

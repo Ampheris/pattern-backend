@@ -26,12 +26,11 @@ class OAuthenticate
         // User has an access token cookie
         if ($request->hasCookie('access_token')) {
             $access_token = $request->cookie('access_token');
-        }else if ($request->hasHeader('Authorization')) {
+        } else if ($request->hasHeader('Authorization')) {
             $access_token = $request->header('Authorization');
             $token_arr = explode(' ', $access_token);
             $access_token = $token_arr[1];
-        }
-        else {
+        } else {
             // User does not have an access token cookie, but maybe an api key?
             // todo: add api key check
             return response('Unauthorized', 401);
@@ -54,7 +53,6 @@ class OAuthenticate
             $request->setUserResolver(function () use ($user) {
                 return $user;
             });
-
         } catch (\Throwable $e) {
             return response('Unauthorized', 401);
         }

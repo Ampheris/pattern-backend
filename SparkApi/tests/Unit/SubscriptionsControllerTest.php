@@ -93,6 +93,5 @@ class SubscriptionsControllerTest extends TestCase
         ]);
         $this->assertEquals(200, $response->status());
         $sub::where('customer_id', 200)->delete();
-
     }
 }

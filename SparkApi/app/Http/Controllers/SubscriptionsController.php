@@ -82,7 +82,7 @@ class SubscriptionsController extends Controller
 
         $subscription = DB::table('subscriptions')->where('customer_id', $user->id)->first();
 
-        if ($subscription['cancelation_date'] != null]) {
+        if ($subscription['cancelation_date'] != null) {
             return response()->json(['message' => 'Subscription not active'], 500);
         }
 

@@ -1,0 +1,19 @@
+ ------ -------------------------------------------------- 
+ [32m Line [39m [32m app/Http/Controllers/SubscriptionsController.php [39m 
+ ------ -------------------------------------------------- 
+  85     Syntax error, unexpected ']' on line 85           
+ ------ -------------------------------------------------- 
+
+ ------ ---------------------------------------------------------------------- 
+ [32m Line [39m [32m Http\Controllers\ApiUserController.php                               [39m 
+ ------ ---------------------------------------------------------------------- 
+  27     Call to an undefined static method App\Models\ApiUser::findOrFail().  
+  39     Call to an undefined static method App\Models\ApiUser::create().      
+  64     Call to an undefined static method App\Models\ApiUser::findOrFail().  
+  73     Call to an undefined static method App\Models\ApiUser::findOrFail().  
+ ------ ---------------------------------------------------------------------- 
+
+[37;41m                                                                                                           [39;49m
+[37;41m [ERROR] Found 5 errors                                                                                    [39;49m
+[37;41m                                                                                                           [39;49m
+

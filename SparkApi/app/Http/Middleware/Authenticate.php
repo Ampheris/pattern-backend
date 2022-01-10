@@ -39,7 +39,7 @@ class Authenticate
         if ($request->routeIs('login.*')) {
             return $next($request);
         }
-        
+
         if ($this->auth->guard($guard)->guest()) {
             return response('Unauthorized.', 401);
         }

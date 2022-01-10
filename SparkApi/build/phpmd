@@ -1,0 +1,73 @@
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\ApiUserController.php:24	Avoid variables with short names like $id. Configured minimum length is 3.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\ApiUserController.php:27	Avoid using static access to class '\App\Models\ApiUser' in method 'show'.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\ApiUserController.php:38	Avoid using static access to class '\Illuminate\Support\Str' in method 'create'.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\ApiUserController.php:52	Avoid using static access to class '\Illuminate\Support\Str' in method 'updateToken'.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\ApiUserController.php:55	Avoid using static access to class '\Illuminate\Support\Str' in method 'updateToken'.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\BikeHistoryController.php:28	The class BikeHistoryController has a coupling between objects value of 13. Consider to reduce the number of dependencies under 13.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\BikeHistoryController.php:84	The variable $bike_id is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\BikeHistoryController.php:84	The variable $bike_id is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\BikeHistoryController.php:84	The variable $bike_id is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\BikeHistoryController.php:84	The variable $bike_id is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\BikeHistoryController.php:84	The variable $bike_id is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\BikeHistoryController.php:114	Avoid using static access to class '\Carbon\Carbon' in method 'start'.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\BikeHistoryController.php:124	Avoid using empty try-catch blocks in start.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\BikeHistoryController.php:218	Avoid unused local variables such as '$key'.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\BikeHistoryController.php:249	Avoid unused local variables such as '$key'.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:12	The variable $redirect_uri is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:12	The variable $redirect_uri is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:21	The variable $URL is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:21	The variable $access_token is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:21	The variable $URL is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:21	The variable $access_token is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:21	The variable $access_token is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:21	The variable $access_token is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:21	The variable $access_token is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:21	The method Callback is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:37	Avoid using static access to class '\Symfony\Component\HttpFoundation\Cookie' in method 'Callback'.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:37	Avoid using static access to class '\Symfony\Component\HttpFoundation\Cookie' in method 'Callback'.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:40	Avoid using static access to class '\Symfony\Component\HttpFoundation\Cookie' in method 'Callback'.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:40	Avoid using static access to class '\Symfony\Component\HttpFoundation\Cookie' in method 'Callback'.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:46	The parameter $access_token is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:46	The variable $avatar_url is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:46	The variable $github_id is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:46	The variable $DBUser is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:46	The variable $DBUser is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:46	The variable $DBUser is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:46	The variable $DBUser is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:46	The variable $access_token is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:46	The variable $avatar_url is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:46	The variable $access_token is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:46	The variable $github_id is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:46	The variable $avatar_url is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:68	Avoid using static access to class '\Carbon\Carbon' in method 'checkUser'.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:71	The method checkUser uses an else expression. Else clauses are basically not necessary and you can simplify the code by not using them.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:80	Avoid using static access to class '\Carbon\Carbon' in method 'checkUser'.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:118	The parameter $access_token is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SocialController.php:118	The variable $access_token is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Middleware\OAuthenticate.php:19	The variable $access_token is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Middleware\OAuthenticate.php:19	The variable $access_token is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Middleware\OAuthenticate.php:19	The variable $token_arr is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Middleware\OAuthenticate.php:19	The variable $access_token is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Middleware\OAuthenticate.php:19	The variable $access_token is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Middleware\OAuthenticate.php:19	The variable $token_arr is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Middleware\OAuthenticate.php:19	The variable $access_token is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Middleware\OAuthenticate.php:33	The method handle uses an else expression. Else clauses are basically not necessary and you can simplify the code by not using them.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Middleware\OAuthenticate.php:43	Avoid using static access to class '\Carbon\Carbon' in method 'handle'.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\BikeControllerTest.php:105	Avoid variables with short names like $id. Configured minimum length is 3.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\BikeControllerTest.php:130	Avoid variables with short names like $id. Configured minimum length is 3.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\BikeHistoryControllerTest.php:83	Avoid variables with short names like $id. Configured minimum length is 3.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\BikeHistoryControllerTest.php:87	The variable $customer_id is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\BikeHistoryControllerTest.php:87	The variable $customer_id is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\BikeHistoryControllerTest.php:87	The variable $customer_id is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\BikeHistoryControllerTest.php:87	The variable $customer_id is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\BikeHistoryControllerTest.php:87	The variable $customer_id is not named in camelCase.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\BikeHistoryControllerTest.php:104	Avoid variables with short names like $id. Configured minimum length is 3.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\CharginstationControllerTest.php:70	Avoid variables with short names like $id. Configured minimum length is 3.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\CityControllerTest.php:47	Avoid variables with short names like $id. Configured minimum length is 3.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\CityControllerTest.php:82	Avoid variables with short names like $id. Configured minimum length is 3.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\OrdersControllerTest.php:45	Avoid variables with short names like $id. Configured minimum length is 3.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\ParkingspaceControllerTest.php:45	Avoid variables with short names like $id. Configured minimum length is 3.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\ParkingspaceControllerTest.php:81	Avoid variables with short names like $id. Configured minimum length is 3.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\SubscriptionsControllerTest.php:46	Avoid variables with short names like $id. Configured minimum length is 3.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\tests\Unit\SubscriptionsControllerTest.php:85	Avoid variables with short names like $id. Configured minimum length is 3.
+C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SubscriptionsController.php	-	Unexpected token: ], line: 85, col: 54, file: C:\Users\Admin\dbwebb-kurser\patterns\backend\SparkApi\app\Http\Controllers\SubscriptionsController.php.

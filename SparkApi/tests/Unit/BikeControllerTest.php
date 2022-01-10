@@ -104,7 +104,7 @@ class BikeControllerTest extends TestCase
         $bike = new Bike();
         $id = $bike::where('name', 'kljaweioawg')->get('id')->first();
 
-        $response = $this->call('PUT', '/sparkapi/v1/bikes/'. $id->id, [
+        $response = $this->call('PUT', '/sparkapi/v1/bikes/' . $id->id, [
             'status' => 'available',
             'name' => 'gwaoiewajlk',
             'battery' => 100,
@@ -128,7 +128,7 @@ class BikeControllerTest extends TestCase
         $this->assertEquals(201, $response->status());
         $bike = new Bike();
         $id = $bike::where('name', 'kljaweioawg')->get('id')->first();
-        $response = $this->call('DELETE', '/sparkapi/v1/bikes/'. $id->id);
+        $response = $this->call('DELETE', '/sparkapi/v1/bikes/' . $id->id);
 
         $this->assertEquals(200, $response->status());
     }
