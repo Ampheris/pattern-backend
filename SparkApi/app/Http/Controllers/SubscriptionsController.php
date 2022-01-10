@@ -26,12 +26,6 @@ class SubscriptionsController extends Controller
         return response()->json($subscription::all());
     }
 
-    // public function showOneSubscription($customerId)
-    // {
-    //     $subscription = new Subscription();
-    //     return response()->json($subscription::where($customerId)->get());
-    // }
-
     public function showCustomersCurrentSubscription(Request $request): JsonResponse
     {
         $user = $request->user();
@@ -39,13 +33,7 @@ class SubscriptionsController extends Controller
         return response()->json($subscription::where('customer_id', $user->id)->latest()->first());
     }
 
-    // public function showCustomersAllSubscriptions($customerId)
-    // {
-    //     $subscription = new Subscription();
-    //     return response()->json($subscription::where($customerId)->get());
-    // }
-
-    public function start(Request $request): Response|JsonResponse|ResponseFactory
+    public function start(Request $request)
     {
         date_default_timezone_set('Europe/Stockholm');
         $date = Carbon::now();
@@ -53,13 +41,13 @@ class SubscriptionsController extends Controller
         $user = $request->user();
 
         try {
-            $currentSubscription = DB::table('subscriptions')->where('customer_id', $user->id)->get();
+            $currentSubscription = DB::table('subscriptions')->where('customer_id', $user->id)->latest()->get()->first();
         } catch (\Throwable $e) {
             $currentSubscription = null;
         }
 
-        if ($currentSubscription) {
-            if (!$currentSubscription->cancelation_date) {
+        if ($currentSubscription != null) {
+            if ($currentSubscription->cancelation_date == null) {
                 return response('The user already has an active subscription.', 500);
             }
         }
@@ -94,7 +82,7 @@ class SubscriptionsController extends Controller
 
         $subscription = DB::table('subscriptions')->where('customer_id', $user->id)->first();
 
-        if ($subscription['cancelation_date != null']) {
+        if ($subscription['cancelation_date'] != null]) {
             return response()->json(['message' => 'Subscription not active'], 500);
         }
 
@@ -129,16 +117,15 @@ class SubscriptionsController extends Controller
         return response()->json($order, 201);
     }
 
-    public function stop(): JsonResponse
+    public function stop($subscriptionId): JsonResponse
     {
         $date = Carbon::now();
-        $sub_id = $_GET['sub_id'];
 
-        DB::table('subscriptions')->where('id', $sub_id)->update([
+        DB::table('subscriptions')->where('id', $subscriptionId)->update([
             'cancelation_date' => $date,
             'updated_at' => $date
         ]);
 
-        return response()->json(DB::table('subscriptions')->where('subscription_id', $sub_id)->first(), 200);
+        return response()->json(DB::table('subscriptions')->where('subscription_id', $subscriptionId)->first(), 200);
     }
 }
