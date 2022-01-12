@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit;
 
 use App\Http\Controllers\ParkingSpacesController;
+use Laravel\Lumen\Testing\WithoutMiddleware;
 use App\Models\Parkingspace;
 use Tests\TestCase;
 
@@ -19,7 +20,7 @@ use Tests\TestCase;
  */
 class ParkingSpacesControllerTest extends TestCase
 {
-
+    use WithoutMiddleware;
     // use DatabaseMigrations;
     /**
      * Construct object to be used in tests.

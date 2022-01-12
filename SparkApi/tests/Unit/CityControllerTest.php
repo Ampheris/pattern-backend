@@ -6,6 +6,7 @@ namespace Tests\Unit;
 
 use App\Http\Controllers\CityController;
 use Laravel\Lumen\Testing\DatabaseMigrations;
+use Laravel\Lumen\Testing\WithoutMiddleware;
 use Database\Factories;
 use App\Models\Cityzone;
 use Tests\TestCase;
@@ -21,7 +22,7 @@ use Tests\TestCase;
  */
 class CityControllerTest extends TestCase
 {
-
+    use WithoutMiddleware;
     // use DatabaseMigrations;
     /**
      * Construct object to be used in tests.

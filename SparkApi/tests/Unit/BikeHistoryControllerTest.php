@@ -7,6 +7,7 @@ namespace Tests\Unit;
 use App\Http\Controllers\BikeHistoryController;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Illuminate\Testing\Fluent\AssertableJson;
+use Laravel\Lumen\Testing\WithoutMiddleware;
 use Database\Factories;
 use App\Models\Bikelog;
 use DateTime;
@@ -23,7 +24,7 @@ use Tests\TestCase;
  */
 class BikeHistoryControllerTest extends TestCase
 {
-
+    use WithoutMiddleware;
     /**
      * Check that the showAll action returns json.
      * @runInSeparateProcess
@@ -53,7 +54,7 @@ class BikeHistoryControllerTest extends TestCase
 
     public function testShowOneBikesHistoryUser()
     {
-        $response = $this->call('GET', '/sparkapi/v1/bikehistory/user/1');
+        $response = $this->call('GET', '/sparkapi/v1/bikehistory/bike/1');
 
         $this->assertEquals(200, $response->status());
     }
@@ -69,39 +70,5 @@ class BikeHistoryControllerTest extends TestCase
         $response = $this->call('GET', '/sparkapi/v1/bikehistory/1');
 
         $this->assertEquals(200, $response->status());
-    }
-
-    public function testPostBikeHistory()
-    {
-        $response = $this->call('POST', '/sparkapi/v1/bikehistory/start', [
-            'customer_id' => 0,
-            'bike_id' => 0
-        ]);
-        $this->assertEquals(201, $response->status());
-
-        $log = new Bikelog();
-        $id = $log::where('customer_id', 0)->get('id')->first();
-        $log::where('id', $id)->delete();
-    }
-
-    public function testPutBikeHistory()
-    {
-        $customer_id = 0;
-        $response = $this->call('POST', '/sparkapi/v1/bikehistory/start', [
-            'customer_id' => $customer_id,
-            'bike_id' => 0
-        ]);
-
-        $this->assertEquals(201, $response->status());
-
-        $response = $this->call('POST', '/sparkapi/v1/bikehistory/stop/' . $customer_id, [
-            'customer_id' => $customer_id,
-        ]);
-
-        $this->assertEquals(200, $response->status());
-
-        $log = new Bikelog();
-        $id = $log::where('customer_id', $customer_id)->get('id')->first();
-        $log::where('id', $id)->delete();
     }
 }

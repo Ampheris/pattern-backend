@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit;
 
 use App\Http\Controllers\ChargingStationsController;
+use Laravel\Lumen\Testing\WithoutMiddleware;
 use App\Models\Chargingstation;
 use Tests\TestCase;
 
@@ -19,7 +20,7 @@ use Tests\TestCase;
  */
 class ChargingStationsControllerTest extends TestCase
 {
-
+    use WithoutMiddleware;
     // use DatabaseMigrations;
     /**
      * Construct object to be used in tests.
@@ -52,6 +53,7 @@ class ChargingStationsControllerTest extends TestCase
             'Y' => 0.25,
             'radius' => 0.05
         ]);
+        
         $this->assertEquals(201, $response->status());
         $bike = new Chargingstation();
         $bike::where('name', 'y978q2t34hu9weg')->delete();

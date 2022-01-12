@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
+use Illuminate\Testing\Fluent\AssertableJson;
 use App\Http\Controllers\BikeController;
+use Laravel\Lumen\Testing\WithoutMiddleware;
 use App\Models\Bike;
 use Tests\TestCase;
+use Illuminate\Support\Str;
 
 // use ReflectionClass;
 // use PHPUnit\Framework\TestCase;
@@ -19,6 +22,7 @@ use Tests\TestCase;
  */
 class BikeControllerTest extends TestCase
 {
+    use WithoutMiddleware;
 
     // use DatabaseMigrations;
     /**
@@ -38,7 +42,6 @@ class BikeControllerTest extends TestCase
     public function testShowOneBike()
     {
         $response = $this->call('GET', '/sparkapi/v1/bikes/1');
-
         $this->assertEquals(200, $response->status());
     }
 
@@ -52,61 +55,32 @@ class BikeControllerTest extends TestCase
     {
         $response = $this->call('POST', '/sparkapi/v1/bikes', [
             'status' => 'available',
-            'name' => 'kljaweioawg',
+            'name' => Str::random(10),
             'battery' => 100,
             'velocity' => 0,
             'X' => 0.25,
             'Y' => 0.25
         ]);
+
         $this->assertEquals(201, $response->status());
-        $bike = new Bike();
-        $bike::where('name', 'kljaweioawg')->delete();
     }
-
-    // public function testPostBikeNotUnique()
-    // {
-    //     $response = $this->call('POST', '/sparkapi/v1/bikes', [
-    //         'status' => 'available',
-    //         'name' => 'kljaweioawg',
-    //         'battery' => 100,
-    //         'velocity' => 0,
-    //         'X' => 0.25,
-    //         'Y' => 0.25
-    //     ]);
-    //     $this->assertEquals(201, $response->status());
-
-    //     $response = $this->call('POST', '/sparkapi/v1/bikes', [
-    //         'status' => 'available',
-    //         'name' => 'kljaweioawg',
-    //         'battery' => 100,
-    //         'velocity' => 0,
-    //         'X' => 0.25,
-    //         'Y' => 0.25
-    //     ]);
-    //     $this->assertEquals(500, $response->status());
-
-
-    //     $bike = new Bike();
-    //     $bike::where('name', 'kljaweioawg')->delete();
-    // }
 
     public function testPutBike()
     {
         $response = $this->call('POST', '/sparkapi/v1/bikes', [
             'status' => 'available',
-            'name' => 'kljaweioawg',
+            'name' => Str::random(10),
             'battery' => 100,
             'velocity' => 0,
             'X' => 0.25,
             'Y' => 0.25
         ]);
         $this->assertEquals(201, $response->status());
-        $bike = new Bike();
-        $id = $bike::where('name', 'kljaweioawg')->get('id')->first();
+        $id = json_decode($response->getContent())->id;
 
-        $response = $this->call('PUT', '/sparkapi/v1/bikes/' . $id->id, [
-            'status' => 'available',
-            'name' => 'gwaoiewajlk',
+        $response = $this->call('PUT', '/sparkapi/v1/bikes/' . $id, [
+            'status' => 'unavailable',
+            'name' => Str::random(10),
             'battery' => 100,
             'velocity' => 0,
             'X' => 0.25,
@@ -119,17 +93,16 @@ class BikeControllerTest extends TestCase
     {
         $response = $this->call('POST', '/sparkapi/v1/bikes', [
             'status' => 'available',
-            'name' => 'kljaweioawg',
+            'name' => Str::random(10),
             'battery' => 100,
             'velocity' => 0,
             'X' => 0.25,
             'Y' => 0.25
         ]);
         $this->assertEquals(201, $response->status());
-        $bike = new Bike();
-        $id = $bike::where('name', 'kljaweioawg')->get('id')->first();
-        $response = $this->call('DELETE', '/sparkapi/v1/bikes/' . $id->id);
+        $id = json_decode($response->getContent())->id;
 
+        $response = $this->call('DELETE', '/sparkapi/v1/bikes/' . $id);
         $this->assertEquals(200, $response->status());
     }
 }
