@@ -20,7 +20,13 @@
     ```text
     php artisan migrate
     ```
-* Run development server: php -S localhost:8080 -t public
+
+* .env
+    * GITHUB_CLIENT_ID
+    * GITHUB_CLIENT_SECRET
+    * GITHUB_URL=http://localhost:8000/sparkapi/v1/login/github/callback
+    
+* Run development server: php -S localhost:8000 -t public
 
 ## Code quality
 Make sure you keep a good code standard when contributing
