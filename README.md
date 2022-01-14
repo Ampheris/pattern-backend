@@ -1,9 +1,9 @@
 # SparkApi
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Ampheris/pattern-bikeprogram/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/Ampheris/pattern-bikeprogram/?branch=main)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Ampheris/pattern-backend/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/Ampheris/pattern-backend/?branch=main)
 
-[![Build Status](https://scrutinizer-ci.com/g/Ampheris/pattern-bikeprogram/badges/build.png?b=main)](https://scrutinizer-ci.com/g/Ampheris/pattern-bikeprogram/build-status/main)
+[![Build Status](https://scrutinizer-ci.com/g/Ampheris/pattern-backend/badges/build.png?b=main)](https://scrutinizer-ci.com/g/Ampheris/pattern-backend/build-status/main)
 
-[![Code Intelligence Status](https://scrutinizer-ci.com/g/Ampheris/pattern-bikeprogram/badges/code-intelligence.svg?b=main)](https://scrutinizer-ci.com/code-intelligence)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/Ampheris/pattern-backend/badges/code-intelligence.svg?b=main)](https://scrutinizer-ci.com/code-intelligence)
 
 ## Table of content
 * [Contributing](#get-started-with-developing)
